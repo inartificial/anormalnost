@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="ru"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Анормальность — Юрий Клочко</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&amp;family=IBM+Plex+Mono:wght@400&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,700;1,7..72,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" rel="stylesheet"/>
+<script defer="" src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer="" src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<style>/* ===== Fibonacci design code =====
+   series: 1 2 3 5 8 13 21 34 55 89 144 233 377 610 987 1597
+   every colour channel, size, gap and width below is a member of the series */
+:root{--sans:"Inter Tight","Helvetica Neue",Helvetica,Arial,sans-serif;--serif:"Literata",Georgia,serif;
+  --phi:1.618;
+  --f8:8px;--f13:13px;--f21:21px;--f34:34px;--f55:55px;--f89:89px;--f144:144px;--f233:233px;--f377:377px;--f610:610px;--f987:987px;--f1597:1597px;
+  --red:rgb(233,34,13);--green:rgb(21,144,55);--blue:rgb(89,144,233);--amber:rgb(233,144,21);--ochre:rgb(144,89,13);--dusk:rgb(144,55,34)}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto} *{transition:none!important}}
+body{margin:0;font-family:var(--serif);font-size:var(--f21);line-height:var(--f34);transition:background 1s ease,color 1s ease}
+body[data-theme=light]{--bg:rgb(233,233,233);--ink:rgb(1,1,1);--ink2:rgb(89,89,89);--line:rgb(144,144,144);--line2:rgb(233,233,233);--card:rgb(233,233,233);--tile:rgba(144,144,144,.34)}
+body[data-theme=dark]{--ochre:rgb(233,144,21);--bg:rgb(1,1,1);--ink:rgb(233,233,233);--ink2:rgb(144,144,144);--line:rgb(55,55,55);--line2:rgb(13,13,13);--card:rgb(13,13,13);--tile:rgba(89,89,89,.34)}
+body{background:var(--bg);color:var(--ink)}
+a{color:inherit}
+::selection{background:var(--amber);color:rgb(1,1,1)}
+:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+h1,h2,h3{font-family:var(--sans);letter-spacing:-.021em;line-height:1;margin:0;font-weight:600}
+p{margin:0 0 var(--f21)}
+em{font-style:italic} strong{font-weight:700}
+ul,ol{margin:0 0 var(--f21) var(--f21);padding:0} li{margin:0 0 var(--f8)}
+code{font-family:var(--sans);font-size:var(--f13);background:var(--line2);padding:2px var(--f8);outline:1px solid var(--line)}
+p > code:only-child{display:block;padding:var(--f13) var(--f21);margin:var(--f13) 0 var(--f21)}
+.wrap{max-width:calc(var(--f610) + var(--f21)*2);margin:0 auto;padding:0 var(--f21)}
+.wide{max-width:calc(var(--f987) + var(--f21)*2);margin:0 auto;padding:0 var(--f21)}
+.page-w{max-width:calc(var(--f1597) + var(--f21)*2);margin:0 auto;padding:0 var(--f21)}
+/* ---- bar */
+.bar{position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--line);transition:background 1s}
+.bar .page-w{display:flex;align-items:center;justify-content:space-between;height:var(--f55);font-family:var(--sans);font-size:var(--f13);gap:var(--f21)}
+.bar nav{display:flex;gap:var(--f21)}
+.bar nav a{text-decoration:none;color:var(--ink2)} .bar nav a:hover{color:var(--ink)}
+@media (max-width:610px){.bar nav{display:none}}
+/* ---- title: golden split 61.8 / 38.2 */
+.title{padding:var(--f144) 0 var(--f89)}
+.title .page-w{display:block}
+@media (max-width:987px){.title .page-w{grid-template-columns:1fr}}
+.title .eyebrow{font-family:var(--sans);font-size:var(--f13);color:var(--ink2);margin-bottom:var(--f21)}
+.title h1{font-size:clamp(var(--f55),9.5vw,var(--f144));letter-spacing:-.034em;line-height:.89}
+.title .deck{font-family:var(--sans);font-size:var(--f21);line-height:var(--f34);color:var(--ink);max-width:21em}
+/* ---- hero canvas: 1597 × 987 (φ) */
+.hero{max-width:calc(var(--f1597) + var(--f21)*2);margin:0 auto var(--f89);padding:0 var(--f21)}
+.hero canvas{width:100%;aspect-ratio:1.618;display:block;background:var(--bg)}
+.hero .cap,.opener .cap{margin-top:var(--f13)}
+/* ---- parts: opener canvas 987 × 610 */
+section.part{padding:0 0 var(--f34)}
+.opener{padding:var(--f144) 0 var(--f55)}
+.opener .n{font-family:var(--sans);font-size:var(--f13);color:var(--ink2);margin-bottom:var(--f21)}
+.opener h2{font-size:clamp(var(--f55),8vw,var(--f144));letter-spacing:-.034em;line-height:.89;max-width:61.8%}
+.opener canvas{width:100%;aspect-ratio:1.618;display:block;margin-top:var(--f55)}
+@media (max-width:987px){.opener h2{max-width:100%}}
+.chapter{padding:var(--f55) 0 var(--f21)}
+h3.ch{font-size:var(--f34);line-height:1.05;margin:0 0 var(--f34)}
+.chapter .wrap p{hyphens:auto}
+/* ---- pull quote: 987 wide, 34px, ratio to body = φ */
+.pull{max-width:calc(var(--f987) + var(--f21)*2);margin:var(--f55) auto;padding:0 var(--f21);font-family:var(--sans);font-weight:600;font-size:clamp(var(--f21),3.4vw,var(--f34));line-height:1.236;letter-spacing:-.021em}
+.pull span{display:block;max-width:61.8%}
+@media (max-width:987px){.pull span{max-width:100%}}
+/* ---- visuals: 987 wide, captions italic 13/21 in the 377 margin on wide screens */
+.visual{max-width:calc(var(--f987) + var(--f21)*2);margin:var(--f55) auto;padding:0 var(--f21)}
+.visual img{width:100%;display:block;background:rgb(233,233,233);outline:1px solid var(--line)}
+.visual canvas{width:100%;display:block}
+.cap{font-family:var(--serif);font-style:italic;font-size:var(--f13);line-height:var(--f21);color:var(--ink2);margin-top:var(--f13);max-width:var(--f610)}
+.cap b{color:var(--ink);font-weight:700;font-style:normal}
+.grid2{display:grid;grid-template-columns:1.618fr 1fr;gap:var(--f13)}
+.grid2.even{grid-template-columns:1fr 1fr}
+@media (max-width:610px){.grid2,.grid2.even{grid-template-columns:1fr}}
+.ctrl{display:flex;gap:var(--f21);flex-wrap:wrap;align-items:center;margin-top:var(--f13);font-family:var(--sans);font-size:var(--f13);color:var(--ink2)}
+.ctrl:empty{display:none}
+.ctrl label{display:flex;gap:var(--f8);align-items:center}
+.ctrl input[type=range]{width:var(--f144);accent-color:var(--ink)} .ctrl output{color:var(--ink);font-weight:600;min-width:var(--f34)}
+.ctrl .btn{font:inherit;font-weight:600;color:var(--ink);background:transparent;border:1px solid var(--ink);border-radius:var(--f21);padding:var(--f8) var(--f13);cursor:pointer}
+.verdict{font-family:var(--sans);font-weight:600;font-size:var(--f13);color:var(--ink)}
+.evsi{font-family:var(--sans);font-size:var(--f13);line-height:var(--f21);color:var(--ink2);padding:var(--f13) 0 0;border-top:1px solid var(--line)}
+.evsi b{display:block;font-size:var(--f21);color:var(--ink);margin:var(--f8) 0;letter-spacing:-.021em}
+.evsi em{color:var(--ink);font-style:normal;font-weight:600}
+/* ---- math disclosure */
+details.math{max-width:calc(var(--f610) + var(--f21)*2);margin:var(--f13) auto var(--f34);padding:0 var(--f21);font-family:var(--sans)}
+details.math summary{list-style:none;cursor:pointer;display:inline-flex;align-items:center;gap:var(--f8);font-size:var(--f13);color:var(--ink2);padding:var(--f8) 0}
+details.math summary::-webkit-details-marker{display:none}
+details.math summary::before{content:"";width:8px;height:8px;border-right:1px solid currentColor;border-bottom:1px solid currentColor;transform:rotate(-45deg);transition:transform .2s}
+details.math[open] summary::before{transform:rotate(45deg)}
+details.math .m{font-family:var(--serif);font-size:var(--f13);line-height:var(--f21);padding:var(--f13) 0 0;border-top:1px solid var(--line)}
+details.math .m h4{font-family:var(--sans);font-size:var(--f13);margin:0 0 var(--f13)}
+details.math .m p{margin-bottom:var(--f13)}
+.katex-display{margin:var(--f13) 0;overflow-x:auto}
+/* ---- ACH */
+.ach{width:100%;border-collapse:collapse;font-family:var(--sans);font-size:var(--f13)}
+.ach th{padding:var(--f8);font-weight:600;color:var(--ink2);text-align:center;vertical-align:bottom}
+.ach th.win{color:var(--ink)}
+.ach td{padding:3px var(--f8);border-top:1px solid var(--line)} .ach td.e{color:var(--ink)}
+.ach button{width:100%;height:var(--f34);border:1px solid var(--line);background:transparent;font-weight:600;color:var(--ink);cursor:pointer}
+.ach .C{background:transparent} .ach .I{background:var(--ink);color:var(--bg)} .ach .n{color:var(--ink2)}
+.ach .sum{text-align:center;font-weight:600;font-size:var(--f21)} .ach .sum.win{color:var(--ink)}
+/* ===== screen 1: BI (paper 233, ink 34, green 21·144·55) */
+.screen{max-width:calc(var(--f987) + var(--f21)*2);margin:var(--f55) auto;padding:0 var(--f21)}
+.bi{background:rgb(233,233,233);color:rgb(34,34,34);outline:1px solid rgb(144,144,144);font-family:"Inter Tight",Segoe UI,Arial,sans-serif;font-size:var(--f13);line-height:var(--f21)}
+.bi-top{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgb(144,144,144);padding:var(--f8) var(--f13);color:rgb(89,89,89)}
+.bi-top b{font-weight:600;color:rgb(1,1,1)}
+.bi-top .f{display:flex;gap:var(--f8)}
+.bi-top .f span{border:1px solid rgb(144,144,144);padding:2px var(--f8);color:rgb(89,89,89)}
+.bi-body{padding:var(--f13)}
+.bi-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--f8)}
+@media (max-width:610px){.bi-kpis{grid-template-columns:repeat(2,1fr)}}
+.bi-kpi{border:1px solid rgb(144,144,144);padding:var(--f8) var(--f13)}
+.bi-kpi .l{color:rgb(89,89,89)}
+.bi-kpi .v{font-size:var(--f21);font-weight:600;color:rgb(1,1,1);letter-spacing:-.021em;margin:2px 0}
+.bi-kpi .d{color:var(--green);font-weight:600}
+.bi-kpi canvas{width:100%;height:var(--f34);display:block;margin-top:var(--f8)}
+.bi-row{display:grid;grid-template-columns:1.618fr 1fr;gap:var(--f8);margin-top:var(--f8)}
+@media (max-width:610px){.bi-row{grid-template-columns:1fr}}
+.bi-panel{border:1px solid rgb(144,144,144);padding:var(--f8) var(--f13)}
+.bi-panel .h{color:rgb(34,34,34);font-weight:600;margin-bottom:var(--f8);display:flex;justify-content:space-between}
+.bi-panel .h span{color:rgb(144,144,144);font-weight:400}
+.bi-panel canvas{width:100%;height:var(--f144);display:block}
+.bi-table{width:100%;border-collapse:collapse}
+.bi-table th{text-align:left;color:rgb(89,89,89);font-weight:500;border-bottom:1px solid rgb(144,144,144);padding:3px}
+.bi-table td{padding:5px 3px;border-bottom:1px solid rgb(144,144,144);color:rgb(1,1,1)}
+.bi-table .ok{color:var(--green);font-weight:600}
+.bi-foot{display:flex;justify-content:space-between;padding:var(--f8) var(--f13);border-top:1px solid rgb(144,144,144);color:rgb(144,144,144)}
+/* ===== screen 3: instrument (night 13, text 233, muted 144) */
+.ai{background:rgb(13,13,13);color:rgb(233,233,233);outline:1px solid rgb(34,34,34);font-family:"Inter Tight",Segoe UI,Arial,sans-serif;font-size:var(--f13);line-height:var(--f21)}
+.ai-top{display:flex;align-items:baseline;justify-content:space-between;gap:var(--f21);padding:var(--f13) var(--f21);border-bottom:1px solid rgb(34,34,34)}
+.ai-top .q{font-size:var(--f21);font-weight:600;color:rgb(233,233,233);letter-spacing:-.021em}
+.ai-top .t{color:rgb(144,144,144)}
+.ai-body{display:grid;grid-template-columns:1.618fr 1fr 1fr}
+@media (max-width:987px){.ai-body{grid-template-columns:1fr}}
+.ai-col{padding:var(--f13) var(--f21);border-right:1px solid rgb(34,34,34)}
+.ai-col:last-child{border-right:0}
+@media (max-width:987px){.ai-col{border-right:0;border-bottom:1px solid rgb(34,34,34)}}
+.ai-col .h{color:rgb(144,144,144);margin-bottom:var(--f13);display:flex;justify-content:space-between}
+.ai-item{display:grid;grid-template-columns:1fr var(--f89);gap:var(--f13);align-items:center;padding:var(--f8) 0;border-top:1px solid rgb(34,34,34)}
+.ai-item .n{color:rgb(233,233,233);font-weight:600}
+.ai-item .s{color:rgb(144,144,144)}
+.ai-item .meta{color:rgb(89,89,89)}
+.ai-item canvas{width:var(--f89);height:var(--f34);display:block}
+.ai-item.silent .n{color:var(--red)}
+.ai-h{padding:var(--f8) 0;border-top:1px solid rgb(34,34,34);display:flex;justify-content:space-between;align-items:baseline;gap:var(--f8)}
+.ai-h .n{color:rgb(233,233,233)}
+.ai-h.dead .n{color:rgb(89,89,89);text-decoration:line-through;text-decoration-color:var(--red)}
+.ai-h .c{color:rgb(144,144,144);white-space:nowrap}
+.ai-note{color:rgb(144,144,144);margin-top:var(--f13);padding-top:var(--f13);border-top:1px solid rgb(34,34,34)}
+.ai-note b{color:rgb(233,233,233);font-weight:600}
+.ai-scale canvas{width:100%;height:var(--f89);display:block}
+.ai-kv{display:grid;grid-template-columns:auto 1fr;gap:3px var(--f13);color:rgb(144,144,144);margin-top:var(--f8)}
+.ai-kv b{color:rgb(233,233,233);font-weight:600}
+.ai-rec{margin-top:var(--f13);padding:var(--f8) var(--f13);border:1px solid rgb(89,89,89);color:rgb(233,233,233);font-weight:600}
+.ai-foot{display:grid;grid-template-columns:1fr 1fr;gap:var(--f21);padding:var(--f8) var(--f21);border-top:1px solid rgb(34,34,34);color:rgb(144,144,144)}
+.ai-foot b{color:rgb(233,233,233);font-weight:600}
+/* ===== the one page: 610 wide, φ-tall */
+.page{max-width:calc(var(--f610) + var(--f21)*2);margin:var(--f55) auto;padding:0 var(--f21)}
+.page .sheet{background:rgb(233,233,233);color:rgb(1,1,1);outline:1px solid rgb(144,144,144);padding:var(--f55);font-family:"Inter Tight",Segoe UI,Arial,sans-serif;font-size:var(--f13);line-height:var(--f21)}
+@media (max-width:610px){.page .sheet{padding:var(--f21)}}
+.sheet .meta{display:flex;justify-content:space-between;color:rgb(89,89,89);margin-bottom:var(--f21)}
+.sheet .q{font-size:var(--f21);font-weight:600;letter-spacing:-.021em;line-height:var(--f34);margin-bottom:var(--f21)}
+.sheet dl{margin:0;display:grid;grid-template-columns:var(--f144) 1fr;gap:var(--f8) var(--f21)}
+@media (max-width:610px){.sheet dl{grid-template-columns:1fr}}
+.sheet dt{color:rgb(89,89,89);padding-top:2px}
+.sheet dd{margin:0}
+.sheet dd.rec{font-weight:600}
+.chapter h3.sub{font-size:var(--f21);margin:var(--f21) 0 var(--f8)}
+footer{padding:var(--f89) 0;font-family:var(--sans);font-size:var(--f13);color:var(--ink2)}
+footer a{color:var(--ink2)}
+footer .row{display:flex;justify-content:space-between;gap:var(--f21);flex-wrap:wrap;border-top:1px solid var(--line);padding-top:var(--f21)}
+
+
+/* --- second pass --- */
+.lead{font-family:var(--sans);font-weight:600;font-size:var(--f21);line-height:var(--f34);letter-spacing:-.013em}
+.screen,.page{max-width:calc(var(--f1597) + var(--f21)*2)}
+.page .sheet{max-width:var(--f987);margin:0 auto}
+.hero canvas,.opener canvas{background:transparent}
+.ai-decision{display:grid;grid-template-columns:1.618fr 1fr;gap:var(--f34);padding:var(--f34) var(--f21);border-bottom:1px solid rgb(34,34,34);align-items:end}
+@media (max-width:987px){.ai-decision{grid-template-columns:1fr}}
+.ai-decision .big{font-size:clamp(var(--f34),4.2vw,var(--f55));line-height:1;font-weight:600;letter-spacing:-.021em;color:rgb(233,233,233)}
+.ai-decision .why{display:grid;gap:var(--f8);color:rgb(144,144,144);font-size:var(--f13);line-height:var(--f21)}
+.ai-decision .why b{color:rgb(233,233,233);font-weight:600}
+.ctrl{font-family:var(--serif);font-style:italic;color:var(--ink2)}
+.ctrl output{font-family:var(--sans);font-style:normal}
+.ctrl .btn{border:0;border-radius:0;padding:0;font-family:var(--sans);font-style:normal;font-weight:600;text-decoration:underline;text-underline-offset:5px;text-decoration-thickness:1px;background:none}
+.ctrl input[type=range]{-webkit-appearance:none;appearance:none;height:1px;background:var(--ink2);width:var(--f144);cursor:pointer}
+.ctrl input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:var(--f13);height:var(--f13);border-radius:50%;background:var(--ink);border:0}
+.ctrl input[type=range]::-moz-range-thumb{width:var(--f13);height:var(--f13);border-radius:50%;background:var(--ink);border:0}
+.ctrl input[type=range]::-moz-range-track{height:1px;background:var(--ink2)}
+.ctrl input[type=checkbox]{accent-color:var(--ink)}
+.ach button{border:0;border-bottom:1px solid var(--line)}
+.evsi{border-top:0}
+
+.title h1{max-width:8em;font-size:clamp(var(--f55),9.5vw,var(--f144))}
+.title .deck{font-size:var(--f21);line-height:var(--f34);font-weight:400;color:var(--ink2);margin-top:var(--f34);max-width:21em}
+.epigraph{display:block;padding:var(--f89) var(--f21) 0;font-family:var(--serif)}
+.epigraph p{font-style:italic;font-size:var(--f21);line-height:var(--f34);margin:0}
+.epigraph span{display:block;font-family:var(--sans);font-size:var(--f13);color:var(--ink2);margin-top:var(--f8)}
+
+/* --- motion: reading as a signal --- */
+.chapter .wrap > p, .chapter .wrap li{color:var(--ink);transition:transform .55s ease,opacity .55s ease;transform:translateY(var(--f13));opacity:0}
+.chapter .wrap > p.seen, .chapter .wrap li.seen{transform:none;opacity:1}
+.chapter .wrap > p.on, .chapter .wrap li.on{color:var(--ink)}
+.chapter .wrap > p.on, .chapter .wrap li.on{color:var(--ink)}
+.chapter .wrap > p.lead{color:var(--ink)} .chapter .wrap > p.lead.on{color:var(--ink)}
+.pull{position:relative;opacity:0;transform:translateY(var(--f13));transition:opacity .89s ease,transform .89s ease}
+.pull.seen{opacity:1;transform:none}
+.pull::after{content:"";position:absolute;left:var(--f21);bottom:calc(-1*var(--f13));height:1px;width:0;background:var(--ink);transition:width 1.618s cubic-bezier(.2,.7,.2,1)}
+.pull.seen::after{width:61.8%}
+.lead span{background:linear-gradient(rgba(233,144,21,.34),rgba(233,144,21,.34)) no-repeat 0 62%/0 34%;transition:background-size 1s cubic-bezier(.2,.7,.2,1);-webkit-box-decoration-break:clone;box-decoration-break:clone}
+.lead.seen span{background-size:100% 34%}
+body[data-theme=dark] .lead span{background-image:linear-gradient(rgba(233,144,21,.21),rgba(233,144,21,.21))}
+h3.ch{opacity:0;transform:translateY(var(--f8));transition:opacity .89s ease,transform .89s ease}
+h3.ch.seen{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.chapter .wrap > p,.chapter .wrap li,.pull,h3.ch,.lead{opacity:1;transform:none;color:var(--ink);transition:none} .pull::after{width:61.8%} .lead{background-size:100% 34%}}
+.title .author{font-family:var(--sans);font-size:var(--f21);line-height:var(--f34);color:var(--ink);margin-bottom:var(--f34);font-weight:600;letter-spacing:-.013em}
+
+/* --- cover --- */
+.title.cover{position:relative;padding:0;min-height:calc(100vh - var(--f55));min-height:calc(100svh - var(--f55));overflow:hidden}
+.title.cover canvas.trace{position:absolute;inset:0;width:100%;height:100%;display:block}
+.title.cover .cover-grid{position:relative;z-index:1;display:flex;flex-direction:column;justify-content:space-between;min-height:calc(100vh - var(--f55));min-height:calc(100svh - var(--f55));padding-top:var(--f34);padding-bottom:var(--f55)}
+.title.cover .author{margin:0;font-size:var(--f34);line-height:var(--f34);font-weight:600;letter-spacing:-.013em;text-transform:none}
+.title.cover h1{font-size:clamp(var(--f55),10.2vw,var(--f233));letter-spacing:-.034em;line-height:.89;max-width:none;text-transform:uppercase;margin:0 0 var(--f21) -0.04em}
+.title.cover .deck{margin:0;font-size:var(--f21);line-height:var(--f34);color:var(--ink);max-width:21em}
+@media (max-width:610px){.title.cover h1{font-size:11.3vw}}
+
+
+/* --- inline notes --- */
+button.fn{font:inherit;color:var(--ochre);background:none;border:0;padding:0;cursor:pointer;text-decoration:underline dashed;text-decoration-thickness:1px;text-underline-offset:5px;text-decoration-color:var(--ochre)}
+button.fn[aria-expanded=true]{text-decoration-style:solid}
+.fnote{border-left-color:var(--amber)}
+.fnote{margin:var(--f8) 0 var(--f21);padding:var(--f13) 0 var(--f13) var(--f21);border-left:1px solid var(--ink)}
+.fnote p{margin:0;font-family:var(--sans);font-size:var(--f13);line-height:var(--f21);color:var(--ink)}
+
+/* ===== instrument, Palantir-style ===== */
+.ai{background:rgb(13,13,13);color:rgb(233,233,233);outline:1px solid rgb(34,34,34);font-family:"Inter Tight",Segoe UI,Arial,sans-serif;font-size:var(--f13);line-height:var(--f21)}
+.ai-bar{display:flex;align-items:center;justify-content:space-between;gap:var(--f21);padding:var(--f8) var(--f21);border-bottom:1px solid rgb(34,34,34);background:rgb(21,21,21)}
+.ai-obj{display:flex;gap:var(--f8);align-items:baseline;flex-wrap:wrap}
+.ai-obj .k{color:rgb(89,89,89);font-size:var(--f13);text-transform:uppercase;letter-spacing:.055em}
+.ai-obj b{color:rgb(233,233,233);font-weight:600;margin-right:var(--f8)}
+.ai-tabs{display:flex;gap:var(--f21)} .ai-tabs span{color:rgb(89,89,89);padding:var(--f8) 0;border-bottom:2px solid transparent} .ai-tabs span.on{color:rgb(233,233,233);border-bottom-color:rgb(89,144,233)}
+.ai-time{color:rgb(144,144,144);white-space:nowrap}
+@media (max-width:987px){.ai-tabs{display:none}}
+.ai-decision{display:grid;grid-template-columns:1.618fr 1fr;gap:var(--f34);padding:var(--f21);border-bottom:1px solid rgb(34,34,34);align-items:center;background:rgb(1,1,1)}
+@media (max-width:987px){.ai-decision{grid-template-columns:1fr}}
+.ai-decision .big{font-size:clamp(var(--f34),4vw,var(--f55));line-height:1;font-weight:600;letter-spacing:-.021em;color:rgb(233,144,21)}
+.ai-decision .why{display:grid;grid-template-columns:1fr 1fr;gap:var(--f8) var(--f21);color:rgb(144,144,144)}
+.ai-decision .why span{display:grid} .ai-decision .why i{font-style:normal;color:rgb(89,89,89);text-transform:uppercase;letter-spacing:.055em;font-size:var(--f13)} .ai-decision .why b{color:rgb(233,233,233);font-weight:600}
+.ai-grid{display:grid;grid-template-columns:1.2fr 1.618fr 1.2fr}
+@media (max-width:987px){.ai-grid{grid-template-columns:1fr}}
+.ai-col{padding:var(--f13) var(--f21);border-right:1px solid rgb(34,34,34)} .ai-col:last-child{border-right:0}
+@media (max-width:987px){.ai-col{border-right:0;border-bottom:1px solid rgb(34,34,34)}}
+.ai-col .h{color:rgb(89,89,89);text-transform:uppercase;letter-spacing:.055em;font-size:var(--f13);margin:var(--f13) 0 var(--f8);display:flex;justify-content:space-between}
+.ai-col .h:first-child{margin-top:0}
+.ai-src{display:grid;grid-template-columns:var(--f34) 1fr var(--f89);gap:var(--f8);align-items:center;padding:var(--f8) 0;border-top:1px solid rgb(21,21,21)}
+.ai-src .n{color:rgb(233,233,233);font-weight:600} .ai-src .s{color:rgb(144,144,144)}
+.ai-src canvas{width:var(--f89);height:var(--f34);display:block}
+.ai-src.silent .n{color:rgb(233,34,13)}
+.code{font-family:"Inter Tight",monospace;font-weight:600;font-size:var(--f13);text-align:center;padding:2px 0;border:1px solid rgb(55,55,55);color:rgb(233,233,233)}
+.code.b{border-color:rgb(21,144,55);color:rgb(21,144,55)} .code.c{border-color:rgb(233,144,21);color:rgb(233,144,21)} .code.d{border-color:rgb(89,89,89);color:rgb(89,89,89)} .code.r{border-color:rgb(233,34,13);color:rgb(233,34,13)}
+.ai-h{padding:var(--f8) 0;border-top:1px solid rgb(21,21,21);display:flex;justify-content:space-between;align-items:baseline;gap:var(--f8)}
+.ai-h .n{color:rgb(233,233,233)} .ai-h.dead .n{color:rgb(89,89,89);text-decoration:line-through;text-decoration-color:rgb(233,34,13)} .ai-h .c{color:rgb(144,144,144)}
+.ai-note{color:rgb(144,144,144);margin-top:var(--f8);padding-top:var(--f8);border-top:1px solid rgb(21,21,21)} .ai-note b{color:rgb(233,233,233);font-weight:600}
+.ai-col canvas{width:100%;display:block}
+.ai-kv{display:grid;grid-template-columns:auto 1fr;gap:2px var(--f13);color:rgb(89,89,89);margin-top:var(--f8)} .ai-kv b{color:rgb(144,144,144);font-weight:600}
+.ai-foot{display:grid;grid-template-columns:1fr 1fr;gap:var(--f21);padding:var(--f8) var(--f21);border-top:1px solid rgb(34,34,34);color:rgb(144,144,144);background:rgb(21,21,21)} .ai-foot b{color:rgb(233,233,233);font-weight:600}
+
+/* ===== instrument app ===== */
+.ai-tabs button{font:inherit;background:none;border:0;color:rgb(89,89,89);padding:var(--f8) 0;border-bottom:2px solid transparent;cursor:pointer}
+.ai-tabs button.on{color:rgb(233,233,233);border-bottom-color:rgb(89,144,233)}
+.ai-decision .why em{font-style:normal;color:rgb(89,89,89);font-size:var(--f13)}
+.ai-grid.two{grid-template-columns:1fr 1.618fr}
+@media (max-width:987px){.ai-grid.two{grid-template-columns:1fr}}
+.ai-src{cursor:pointer} .ai-src:hover .n,.ai-h:hover .n{color:rgb(233,144,21)}
+.ai-src.sel{background:rgb(21,21,21)}
+.ai-h{cursor:pointer}
+canvas.clickable{cursor:pointer}
+.ai-table{width:100%;border-collapse:collapse} .ai-table th{text-align:left;color:rgb(89,89,89);font-weight:500;padding:var(--f8) var(--f8) var(--f8) 0;border-bottom:1px solid rgb(34,34,34);text-transform:uppercase;letter-spacing:.055em;font-size:var(--f13)}
+.ai-table td{padding:var(--f8) var(--f8) var(--f8) 0;border-bottom:1px solid rgb(21,21,21);color:rgb(233,233,233);vertical-align:top} .ai-table tr.row{cursor:pointer} .ai-table tr.row:hover td{color:rgb(233,144,21)} .ai-table tr.sel td{background:rgb(21,21,21)}
+.ai-table td.m{color:rgb(144,144,144)}
+.ai-ctrl{display:flex;gap:var(--f21);flex-wrap:wrap;margin-top:var(--f13);color:rgb(144,144,144)} .ai-ctrl label{display:flex;gap:var(--f8);align-items:center}
+.ai-ctrl input[type=range]{-webkit-appearance:none;appearance:none;height:1px;background:rgb(89,89,89);width:var(--f144)} .ai-ctrl input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:var(--f13);height:var(--f13);border-radius:50%;background:rgb(233,144,21)} .ai-ctrl output{color:rgb(233,233,233);font-weight:600;min-width:var(--f55)}
+.ai-tl{display:grid;grid-template-columns:var(--f89) 1fr;gap:var(--f8) var(--f13);align-items:baseline}
+.ai-tl .t{color:rgb(89,89,89);white-space:nowrap} .ai-tl .e{color:rgb(233,233,233);border-bottom:1px solid rgb(21,21,21);padding-bottom:var(--f8)} .ai-tl .e small{display:block;color:rgb(144,144,144)}
+.ai-tl .e.now{color:rgb(233,144,21)} .ai-tl .e.wait{color:rgb(89,89,89)}
+#ai-passport{color:rgb(144,144,144);margin-bottom:var(--f8)} #ai-passport b{color:rgb(233,233,233);font-weight:600}
+#ai-hyp-detail p{margin:0 0 var(--f8);color:rgb(144,144,144)} #ai-hyp-detail b{color:rgb(233,233,233);font-weight:600}
+
+/* ===== final intelligence workbench ===== */
+.ai{position:relative;overflow:hidden;background:rgb(13,13,13);box-shadow:0 34px 89px rgba(1,1,1,.34)}
+.ai::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.21;background-image:linear-gradient(rgba(89,89,89,.13) 1px,transparent 1px),linear-gradient(90deg,rgba(89,89,89,.13) 1px,transparent 1px);background-size:34px 34px}
+.ai>*{position:relative;z-index:1}
+.ai-class{display:flex;justify-content:space-between;gap:var(--f21);padding:var(--f8) var(--f21);font-family:var(--sans);font-size:var(--f13);letter-spacing:.089em;color:rgb(89,89,89);border-bottom:1px solid rgb(34,34,34);background:rgb(1,1,1)}
+.ai-class span:first-child{color:rgb(233,144,21)}
+.ai-kpi-strip{display:grid;grid-template-columns:repeat(5,1fr);border-bottom:1px solid rgb(34,34,34);background:rgba(1,1,1,.72)}
+.ai-kpi{padding:var(--f13) var(--f21);border-right:1px solid rgb(34,34,34);min-height:var(--f89)}
+.ai-kpi:last-child{border-right:0}
+.ai-kpi span{display:block;color:rgb(89,89,89);font-size:var(--f13);letter-spacing:.089em;margin-bottom:var(--f8)}
+.ai-kpi b{display:block;color:rgb(233,233,233);font-size:var(--f21);line-height:var(--f21);font-weight:600}
+.ai-kpi em{display:block;color:rgb(89,89,89);font-style:normal;margin-top:var(--f8);font-size:var(--f13);line-height:var(--f21)}
+.ai-kpi.hot b{color:rgb(233,34,13)} .ai-kpi.accent b{color:rgb(233,144,21)}
+.ai-mission{color:rgb(89,89,89);font-size:var(--f13);letter-spacing:.089em;margin-bottom:var(--f13)}
+.ai-subrec{color:rgb(144,144,144);margin-top:var(--f13);max-width:34em}
+.ai-brief{border-left:1px solid rgb(55,55,55);padding-left:var(--f21)}
+.ai-brief-label{color:rgb(89,89,89);font-size:var(--f13);letter-spacing:.089em;margin-bottom:var(--f8)}
+.ai-brief-q{color:rgb(233,233,233);font-size:var(--f21);line-height:var(--f34);font-weight:600;margin-bottom:var(--f13)}
+.ai-sitrep{padding:var(--f8) var(--f13);margin:0 0 var(--f13);border-left:2px solid rgb(233,144,21);background:rgba(233,144,21,.055);color:rgb(144,144,144);font-size:var(--f13);line-height:var(--f21)}
+.ai-sitrep b{color:rgb(233,233,233);font-weight:600}
+.ai-task{padding:var(--f13);border:1px solid rgb(55,55,55);background:rgba(1,1,1,.55);color:rgb(144,144,144);font-size:var(--f13);line-height:var(--f21)}
+.ai-task b{color:rgb(233,233,233);font-weight:600}.ai-task strong{color:rgb(233,144,21);font-weight:600}
+.ai-view{min-height:377px;background:rgba(13,13,13,.89)}
+.ai-tabs button{letter-spacing:.021em}
+.ai-bar{background:rgba(21,21,21,.96)}
+.ai-decision{background:linear-gradient(90deg,rgba(1,1,1,.98),rgba(13,13,13,.93));padding:var(--f34)}
+@media(max-width:987px){.ai-kpi-strip{grid-template-columns:repeat(2,1fr)}.ai-kpi:nth-child(5){grid-column:1/-1}.ai-brief{border-left:0;border-top:1px solid rgb(55,55,55);padding-left:0;padding-top:var(--f21)}}
+@media(max-width:610px){.ai-class{display:none}.ai-kpi-strip{grid-template-columns:1fr}.ai-kpi:nth-child(5){grid-column:auto}.ai-kpi{min-height:auto}.ai-decision{padding:var(--f21)}}
+
+/* --- mobile pass --- */
+@media (max-width:610px){
+ .title.cover h1{font-size:9.6vw}
+ .bi-top{flex-direction:column;align-items:flex-start;gap:var(--f8)} .bi-top .f{display:none}
+ #ach,#ai-ach{overflow-x:auto;-webkit-overflow-scrolling:touch} .ach{min-width:var(--f610)}
+ .ai-bar{flex-direction:column;align-items:flex-start;gap:var(--f8)} .ai-obj .k{display:none} .ai-obj{gap:var(--f13)}
+ .ai-time{white-space:normal}
+ .ai-decision .why{grid-template-columns:1fr}
+ .ai-grid.two{grid-template-columns:1fr}
+ .ai-src{grid-template-columns:var(--f34) 1fr var(--f55)} .ai-src canvas{width:var(--f55)}
+ .ai-table{font-size:var(--f13)} .ai-table th,.ai-table td{padding:5px 5px 5px 0}
+ .page .sheet{padding:var(--f21)}
+}
+.bar .beta{font-family:"IBM Plex Mono","JetBrains Mono","SF Mono",Menlo,Consolas,monospace;font-size:var(--f13);color:rgb(144,144,144);border:0;padding:0;line-height:var(--f21);letter-spacing:0;font-weight:400}
+.bar .brand{display:flex;align-items:center;gap:var(--f13)}
+</style></head>
+<body data-theme="light">
+<div class="bar"><div class="page-w"><span class="brand"><b>АНОРМАЛЬНОСТЬ</b><span class="beta">(beta)</span></span><nav><a href="#part1">Норма</a><a href="#part2">Невязка</a><a href="#part3">Сборка</a><a href="#part4">Оценка</a><a href="#part5">Фора</a></nav></div></div>
+<header class="title cover"><canvas class="trace" data-state="hero"></canvas>
+<div class="page-w cover-grid">
+  <div class="author">Юрий Клочко</div>
+  <div class="cover-bottom"><h1>Анормальность</h1><p class="deck">Книга для тех, кому недостаточно фактов</p></div>
+</div></header>
+<section class="part" data-theme="light" id="prolog"><article class="chapter" id="chПролог"><div class="wrap"><h3 class="ch">Пролог. Зелёный</h3><p>Понедельник, восемь утра. Экран.</p><p>Выручка в плане. Запасы в норме. Дебиторка под полным контролем.</p><p>Критическая поставка подтверждена на четверг.</p><p>Все показатели зелёные, все данные сверены.</p><p>И всё же вы знаете, что что-то не так.</p><p class="lead"><span>Вам знаком этот зелёный.</span></p><p>Так было в прошлом квартале, за неделю до того, как другой поставщик сорвал отгрузку. Так было в марте, за месяц до того, как регион, выполнявший план, вдруг его провалил. Каждый раз экран был спокоен, и каждый раз он оставался спокойным до последнего дня.</p></div><div class="screen"><div class="bi">
+<div class="bi-top"><span><b>Сводка руководителя</b> · понедельник, 14 сентября · обновлено 07:58</span><span class="f"><span>Период: неделя 37</span><span>Подразделение: все</span><span>Валюта: ₽</span></span></div>
+<div class="bi-body">
+<div class="bi-kpis" id="bi-kpis"></div>
+<div class="bi-row">
+<div class="bi-panel"><div class="h">Выручка по регионам, млн ₽ <span>факт / план, неделя 37</span></div><canvas data-h="144" id="bi-bars"></canvas></div>
+<div class="bi-panel"><div class="h">Критические поставки <span>ближайшие 7 дней</span></div>
+<table class="bi-table"><tr><th>№</th><th>Поставщик</th><th>Срок</th><th>Статус</th></tr>
+<tr><td>4471</td><td>S</td><td>чт 17.09</td><td class="ok">подтверждена</td></tr>
+<tr><td>4468</td><td>K</td><td>ср 16.09</td><td class="ok">в пути</td></tr>
+<tr><td>4473</td><td>M</td><td>пт 18.09</td><td class="ok">подтверждена</td></tr>
+<tr><td>4475</td><td>S</td><td>пн 21.09</td><td class="ok">план</td></tr></table></div>
+</div>
+</div>
+<div class="bi-foot"><span>Источники: ERP, CRM, DWH · данные сверены 14.09 07:40</span><span>Отклонений от плана: 0</span></div>
+</div></div><div class="wrap"><p>Зелёный не врёт. Он честно говорит, что ничего не произошло.</p><p>Ничего не произошло <em>пока</em>.</p><p>Такая тишина не успокаивает, а настораживает. Если всё спокойно, значит, вы просто ещё что-то не увидели.</p><p>Закупки говорят, что поставщик попросил изменить порядок оплаты. Их менеджер отвечает медленнее, но зато чаще звонит сам и заверяет, что всё в порядке. Перевозчик дважды перенёс отправку.</p><p>У каждой детали есть объяснение, и ни одна ничего не доказывает. На экране по-прежнему ничего не изменилось.</p><p>Закупки добавляют, что у резервного поставщика есть свободное производственное окно. Придержать его можно за небольшую плату, но ответ нужен сегодня до четырёх.</p><p>В четверг вы будете знать больше. Решать нужно сегодня.</p><p>Дело не в том, что было. Об этом экран знает всё. Дело в том, что будет, а об этом не знает ни одна его строка.</p><p>То, что вы сейчас чувствуете, вы называете «чуйкой». На самом деле это вопрос.</p></div><div class="pull"><span>Изменилось ли что-то у поставщика, и достаточно ли того, что мы видим, чтобы действовать раньше, чем это станет фактом?</span></div></article></section><section class="part" data-theme="light" id="part1"><div class="wide"><div class="opener"><div class="n">Часть первая</div><h2>Норма</h2><canvas class="trace" data-state="p1"></canvas><p class="cap">Норма — известная модель обычного мира.</p></div></div><article class="chapter" id="ch1"><div class="wrap"><h3 class="ch">1. Подтверждённый мир</h3><p>Компании любят данные с установленным качеством. Это разумно.</p><p>Сколько на складе ТМЦ, можно пересчитать. Сколько отгружено продукции, видно по накладной. Показания датчика имеют известный способ контроля и поверки.</p><p>Так возникает подтверждённый мир предприятия. Хранилища данных, справочники НСИ, реестр показателей. Мы всё лучше знаем то, что уже произошло.</p><p>Проблема начинается, когда нужно решить, что делать с тем, что ещё не стало фактом.</p><p>Поставщик пока выполняет договор, но меняет поведение. Клиент ещё не ушёл, но уже ведёт себя иначе. Конкурент ничего не объявил, но нанимает людей совсем другого профиля.</p><p>Такие сведения слабые не потому, что обязательно ложны. У них просто несколько прочтений. Просьба о предоплате может означать новые правила, а может означать нехватку денег. Перенос машины объясняется маршрутами, а может объясняться отсутствием груза.</p><p>И система правильно не превращает такое наблюдение в бухгалтерский факт. Опасность возникает на следующем шаге.</p></div><div class="pull"><span>Если у сведений нет однозначной интерпретации, ими будто бы нельзя пользоваться вообще.</span></div><div class="wrap"><p>Именно здесь начинается слепая зона.</p><p>Вы управляете не всей реальностью, а той её частью, которую умеете контролировать и читать одним способом.</p><p>Большие изменения, и угрозы, и возможности, почти всегда рождаются раньше, в тот момент, когда у них ещё несколько прочтений. Это не дефект раннего сигнала. Это его природа.</p></div></article><article class="chapter" id="ch2"><div class="wrap"><h3 class="ch">2. Сигнал тонет не в тишине</h3><p>Седьмого декабря 1941 года Япония атаковала Пёрл-Харбор. Позднее <button class="fn" aria-expanded="false" data-fn="РобертаВольштеттер">Роберта Вольштеттер</button> восстановила информационную картину перед атакой и пришла к неприятному выводу. Предупреждений было немало. Их было очень много.</p><div class="fnote" id="fn-РобертаВольштеттер" hidden><p>Историк, автор книги Pearl Harbor: Warning and Decision (1962), выросшей из работы в RAND. Её вывод: американская разведка располагала множеством предупреждений, но они тонули среди ещё большего числа сигналов о других направлениях, ложных тревог и дипломатического шума. С тех пор «сигнал и шум» — базовое понятие разведывательного анализа: проблема не в получении сигнала, а в его выделении, пока ещё неизвестно, какой из них окажется важным.</p></div><p>Именно поэтому нужное трудно было отличить от фоновых тревог, дипломатических манёвров и множества других правдоподобных сценариев.</p><p>После события правильные сигналы кажутся очевидными. До события они выглядят как несколько сообщений среди сотен.</p><p>Бизнес часто говорит, что ему не хватило данных. Но письмо было. Необычная транзакция была. Странный разговор был, и клиент уже начал вести себя иначе. Просто каждое наблюдение по отдельности получало спокойное объяснение.</p><p>Сигнал редко приходит с надписью «СИГНАЛ». Чаще он выглядит как шум, который почему-то изменил форму.</p></div><div class="visual"><div class="grid2 even"><canvas data-h="233" id="c-noise-a"></canvas><canvas data-h="233" id="c-noise-b"></canvas></div><div class="ctrl"><button class="btn" id="noiseReveal">Показать расчёт</button><label>Порог <input id="noiseThr" max="6" min="2.5" step=".25" type="range" value="4"/><output id="noiseThrV">4</output></label><button class="btn" id="noiseReroll">Другие данные</button></div><p class="cap"><b>Сорок объектов, один изменил форму.</b> Слева — сырые ряды. Справа — отклонение каждого ряда от его собственных прошлых сорока недель, измеренное медианой и MAD, чтобы выброс не размывал норму. Один ряд уходит за порог при обычном для всех абсолютном значении.</p></div></article><article class="chapter" id="ch3"><div class="wrap"><h3 class="ch">3. Факт приходит последним</h3><p>Представим простую последовательность.</p><p>Поставщик испытывает трудности. В первый день это знают два человека внутри его компании. На третий день меняется что-то незначительное. Закупки начинают просить предоплату, один рейс переносится, менеджер избегает конкретного срока.</p><p>Через неделю изменения начинают замечать контрагенты. Через две появляется первая публикация. Через месяц срывается поставка. Ещё позже событие попадает в вашу отчётность.</p><p>На каждом шаге уверенность растёт, но вместе с ней уменьшается свобода действия. Когда проблема стала бухгалтерским фактом, резервное окно уже занято.</p><p>Это фундаментальная асимметрия управления.</p></div><div class="pull"><span>Чем надёжнее информация о будущем событии, тем меньше времени остаётся на решение.</span></div><div class="wrap"><p class="lead"><span>Факт фиксирует произошедшее. Оценка позволяет действовать раньше. Разница между ними и есть фора.</span></p><p>Из этой асимметрии следует, кому достаётся выигрыш. Все участники рынка получат подтверждённый факт одновременно, в четверг. Различие между ними возникает раньше, в понедельник, когда факт ещё допускал три прочтения и кто-то один решил их разобрать. Тот, кто научился читать сигналы на этой стадии, не защищается от неожиданностей. Он получает недели форы там, где остальные ждут подтверждения.</p><p>Поэтому вопрос «достоверно ли это?» для раннего предупреждения часто поставлен неправильно. Нужен другой.</p><p class="lead"><span>Достаточно ли того, что мы видим, чтобы изменить действие?</span></p><p>Это не призыв верить слухам. Наоборот. Для работы со слабой информацией нужна более строгая дисциплина, чем для работы с проверенной.</p><p>И такая дисциплина давно существует. Её пришлось создать тем, кто профессионально принимает решения в мире, где полных и достоверных данных почти никогда нет.</p><p>Разведке.</p><p>И нам нужна разведка, а точнее её методология.</p><p>И вот появляется состояние, для которого у бизнеса почти нет языка. Значения ещё укладываются в норму, но связи, ритмы и способы ошибки, делавшие эту норму устойчивой, уже начинают ломаться. Мир ещё выглядит прежним и уже перестал им быть.</p><p class="lead"><span>Анормальность начинается раньше аномалии.</span></p><p>Эта книга о том, как увидеть именно этот промежуток и успеть использовать его до того, как изменение получит имя.</p></div><div class="visual"><canvas data-h="300" id="c-asym"></canvas><div class="ctrl"><label>День <input type="range" id="asDay" min="0" max="30" value="12"><output id="asDayV">12</output></label><label>Скорость подтверждения <input type="range" id="asSpeed" min="2" max="6" step=".5" value="3.2"><output id="asSpeedV">3.2</output></label><span class="verdict" id="asVerdict"></span></div><p class="cap"><b>Факт приходит последним.</b> Двигайте день: слева — сколько уверенности уже есть, справа — сколько вариантов ещё осталось. Скорость подтверждения задаёт, как быстро событие становится фактом; окно решения от неё не расширяется, только сдвигается.</p></div></article></section><section class="part" data-theme="light" id="part2"><div class="wide"><div class="opener"><div class="n">Часть вторая</div><h2>Невязка</h2><canvas class="trace" data-state="p2"></canvas><p class="cap">Невязка — факты ещё могут быть верными, но совокупность наблюдений уже не укладывается в прежнюю модель.</p></div></div><article class="chapter" id="ch4"><div class="wrap"><h3 class="ch">4. Не спрашивайте: «Правда ли?»</h3><p>Получив непроверенное сообщение, обычный руководитель пытается решить, верить ему или нет. Это почти всегда слишком грубая операция.</p><p>В профессиональной разведывательной практике отдельно оценивают как минимум две вещи: насколько надёжен источник и насколько правдоподобно конкретное сообщение. Это разные вопросы.</p><p>Источник может много лет давать точные сведения и однажды ошибиться. Неизвестный источник может впервые сообщить правду.</p><p>В <button class="fn" aria-expanded="false" data-fn="AdmiraltyCode">Адмиралтейской шкале</button> надёжность источника оценивается отдельно от качества конкретной информации. Получается комбинация вроде B2 или C3.</p><div class="fnote" id="fn-AdmiraltyCode" hidden><p>Шкала оценки источников, принятая в НАТО и полицейской практике. Источник получает букву от A (надёжен, история подтверждений) до F (оценить нельзя); само сообщение — цифру от 1 (подтверждено независимо) до 6 (оценить нельзя). «B2» — надёжный источник, вероятная информация; «F6» — неизвестно кто, неизвестно что. Обе оценки ставятся до того, как известна правда: первая — по истории источника, вторая — по согласованности с уже известным.</p></div><p>Смысл не в буквах. Смысл в запрете на простую мысль.</p></div><div class="pull"><span>«Я доверяю человеку, значит, сообщение верно».</span></div><div class="wrap"><p>Теперь вернёмся к поставщику. Допустим, его собственный производственный отчёт систематически завышает готовность. Раньше вы могли сказать, что данным поставщика доверять нельзя. Аналитик задаст другой вопрос.</p><p class="lead"><span>Как именно этому источнику нельзя доверять?</span></p><p>Он завышает уровень? С какой задержкой отражает проблему? В каких ситуациях ошибается сильнее? Что сообщает точно, а о чём предпочитает молчать?</p><p>И главное. Когда позднее появляется физический факт, реальная отгрузка, платёж или прибытие машины, насколько ранний сигнал был с ним связан?</p><p>Так появляется паспорт источника. Не моральная оценка «честный или нечестный», а описание канала наблюдения. У него есть задержка, смещение, шум, пропуски, зависимость от других источников и область, в которой он полезен.</p><p>Ненадёжность перестаёт быть бинарным признаком и становится измеримой характеристикой канала.</p><p>И здесь появляется первая неочевидная мысль этой книги.</p><p class="lead"><span>Источник может быть плохим измерителем уровня и хорошим детектором изменения.</span></p></div><div class="visual"><div class="grid2 even"><canvas data-h="233" id="c-pp-a"></canvas><canvas data-h="233" id="c-pp-b"></canvas></div><div class="ctrl"><label>Истинная задержка, нед. <input id="ppLag" max="6" min="0" type="range" value="2"/><output id="ppLagV">2</output></label><label>Истинное завышение <input id="ppBias" max="40" min="0" type="range" value="15"/><output id="ppBiasV">15%</output></label></div><p class="cap"><b>Паспорт источника.</b> Отчёт поставщика против реальности, которая становится известна позднее. Задержка находится как сдвиг, при котором ряды совпадают лучше всего; смещение — как медиана отношения. Три числа вместо «верить / не верить».</p></div></article><article class="chapter" id="ch5"><div class="wrap"><h3 class="ch">5. Один источник в семи зеркалах</h3><p>В начале 2000-х американское разведывательное сообщество получило подробные сообщения о мобильных иракских установках для производства биологических агентов. Главным источником был иракский перебежчик с кодовым именем <button class="fn" aria-expanded="false" data-fn="Curveball">Curveball</button>.</p><div class="fnote" id="fn-Curveball" hidden><p>Кодовое имя иракского перебежчика, чьи сообщения о мобильных лабораториях биологического оружия легли в основу американских оценок 2002–2003 годов. Послевоенные расследования показали, что ключевые выводы зависели от одного источника, к которому у самих аналитиков были вопросы, и что степень этой зависимости не была ясно доведена до тех, кто принимал решения. Классический урок о происхождении: многочисленные подтверждения могут восходить к одному человеку.</p></div><p>Его сообщения циркулировали по системе, включались в аналитические продукты, пересказывались через разные структуры и создавали ощущение широкой доказательной базы. После войны выяснилось, насколько сильно ключевой вывод зависел от одного источника и насколько недостаточно ясно эта зависимость была доведена до принимающих решения.</p><p>Здесь важен не Ирак. Важна архитектура ошибки.</p><p>Пять сайтов могут перепечатать один материал. Три отчёта могут использовать один исходный фид. Два знакомых могут пересказать один и тот же разговор. Сообщение способно пройти через несколько организаций, потерять происхождение и вернуться как «ещё одно подтверждение».</p><p>Поэтому первый вопрос звучит не как «сколько сообщений?».</p></div><div class="pull"><span>Сколько независимых способов увидеть реальность у нас на самом деле есть?</span></div><div class="wrap"><p>Это меняет смысл слова «много».</p><p>Представьте, что до появления новых сведений вы считали серьёзную проблему у поставщика маловероятной, скажем, на десять процентов. Приходит один слабый, но полезный сигнал. Не доказательство, просто наблюдение, которое заметно чаще встречается, когда проблема действительно есть. Ваша оценка может подняться, например, до двадцати пяти процентов.</p><p>Теперь представьте, что приходит ещё шесть таких же сигналов, и каждый получен действительно независимо. Другой канал, другой механизм, другой наблюдатель, другая причина ошибки. Совместно они способны изменить картину радикально.</p><p>А теперь представьте другое. Вы увидели семь сообщений, но все семь оказались перепечатками первого. Тогда у вас не семь подтверждений, а по-прежнему одно.</p><p>Количество текстов выросло в семь раз. Количество знания не выросло.</p><p>Вот зачем нужно <button class="fn" aria-expanded="false" data-fn="provenance">происхождение информации</button>. Не как аккуратная подпись к данным, а как способ не перепутать эхо с подтверждением.</p><div class="fnote" id="fn-provenance" hidden><p>Происхождение информации: цепочка, по которой сообщение дошло до вас — первоисточник, посредники, перепечатки. В разведке считаются не сообщения, а независимые механизмы получения: пять перепечаток одной публикации — одно свидетельство. Формально provenance можно описывать по модели W3C PROV; практически — графом «кто от кого получил».</p></div><p>Если пять стрелок сходятся к одной точке в начале, у вас не пять свидетельств. У вас один источник в пяти зеркалах. И иногда именно это отделяет осторожное подозрение от ложной уверенности.</p></div><div class="visual"><canvas data-h="300" id="c-prov" class="clickable"></canvas><div class="ctrl"><label>Исходная вероятность <input type="range" id="prP0" min="1" max="50" value="10"><output id="prP0V">10 %</output></label><label>Сила одного сигнала, LR <input type="range" id="prLR" min="1" max="6" step=".5" value="3"><output id="prLRV">3</output></label><span class="verdict" id="prVerdict"></span></div><p class="cap"><b>Один источник в семи зеркалах.</b> Нажимайте на сообщения: серые восходят к одной публикации и считаются как одно, синие — независимые каналы. Шансы умножаются только на независимые свидетельства.</p></div><details class="math"><summary>М1. Почему семь независимых сигналов — не то же самое, что семь копий одного</summary><div class="m"><p>Это математическое дополнение к главе <strong>«Один источник в семи зеркалах»</strong>.</p>
+<p>Пусть исходная вероятность гипотезы (H) равна 10%.</p>
+<p>Удобно перейти к шансам:</p>
+<p>\[
+O(H)=\frac{P(H)}{1-P(H)}=\frac{0.1}{0.9}=\frac19.
+\]</p>
+<p>Пусть наблюдение (E) втрое вероятнее, если гипотеза верна, чем если она неверна:</p>
+<p>\[
+LR=\frac{P(E\mid H)}{P(E\mid \neg H)}=3.
+\]</p>
+<p>Тогда после одного сигнала:</p>
+<p>\[
+O(H\mid E)=O(H)\times LR=\frac13.
+\]</p>
+<p>Шансы (1:3) соответствуют вероятности 25%.</p>
+<p>Если появляется семь условно независимых свидетельств той же силы:</p>
+<p>\[
+O(H\mid E_1,\ldots,E_7)=\frac19\times3^7=243.
+\]</p>
+<p>Это даёт вероятность примерно:</p>
+<p>\[
+P(H\mid E_1,\ldots,E_7)=\frac{243}{244}\approx99.6\%.
+\]</p>
+<p>Но если семь сообщений являются копиями одного исходного свидетельства, множитель (3^7) применять нельзя.</p>
+<p>Остаётся один (LR=3).</p>
+<p>И вероятность остаётся 25%.</p>
+<p><strong>Именно поэтому provenance имеет математическое значение: зависимость между сообщениями определяет реальный объём свидетельства.</strong></p></div></details></article><article class="chapter" id="ch6"><div class="wrap"><h3 class="ch">6. То, что не меняется</h3><p>Теперь главная идея книги.</p><p>Поставщик сообщает, что готово 4 200 единиц. Правда это или нет?</p><p>Возможно, сегодня проверить нельзя. Но у вас есть два года его сообщений, а позднее появятся и реальные отгрузки. И постепенно вы начинаете видеть не числа, а поведение канала. Его обычный разброс, сезонность, ритм подтверждений. Задержку между обещанием и отгрузкой, обычное завышение, обычную связь с перевозчиком.</p><p>То есть то, что при прежнем режиме оставалось устойчивым.</p><p>Назовём это инвариантом наблюдения, не физической константой, а просто отношением, которое сохраняется, пока система живёт привычным образом.</p><p>И тогда вопрос меняется.</p></div><div class="pull"><span>«Он ошибается так же, как ошибался всегда?»</span></div><div class="wrap"><p>Если поставщик два года завышал готовность примерно одинаково, а теперь характер ошибки изменился, это наблюдение. Если подтверждение всегда приходило за два дня до отгрузки, а теперь приходит за шесть часов, изменился ритм. Если два источника обычно расходились на пятнадцать процентов, а сегодня совпали до последней единицы, исчез привычный люфт.</p><p>Нам ещё не обязательно знать истинное значение. Достаточно увидеть, что сломалось то, что прежде было устойчивым.</p><p>Поэтому ненадёжный источник иногда остаётся хорошим детектором изменения. Для раннего предупреждения стабильность его ошибки может быть важнее точности отдельного числа.</p><p>Аналитика анормальности начинается не с вопроса о том, какое число неправильное, а с другого.</p><p class="lead"><span>Что в этом мире обычно не менялось, и не сломалось ли это сейчас?</span></p></div><div class="visual"><div class="grid2 even"><canvas data-h="233" id="c-flow-a"></canvas><canvas data-h="233" id="c-flow-b"></canvas></div><div class="ctrl"><label>A завышает на <input id="biasA" max="40" min="0" type="range" value="15"/><output id="biasAV">15%</output></label><label>B занижает на <input id="biasB" max="40" min="0" type="range" value="8"/><output id="biasBV">8%</output></label><label>Шум <input id="flowNoise" max="120" min="10" type="range" value="50"/><output id="flowNoiseV">50</output></label></div><p class="cap"><b>Инвариант.</b> Два источника искажают в разные стороны и не согласны ни в одной точке. Их недельные изменения совпадают ровно в ту неделю, когда что-то произошло. Двигайте смещения — правый график не меняется.</p></div><details class="math"><summary>М2. Почему устойчивое искажение не всегда мешает видеть изменение</summary><div class="m"><p>Дополнение к главе <strong>«То, что не меняется»</strong>.</p>
+<p>Если наблюдение имеет постоянное аддитивное смещение:</p>
+<p>\[
+Y_t=X_t+b+\varepsilon_t,
+\]</p>
+<p>где (X_t) — истинный процесс, (b) — постоянное смещение канала, а (\varepsilon_t) — шум, то первая разность даёт:</p>
+<p>\[
+\Delta Y_t=\Delta X_t+\Delta\varepsilon_t.
+\]</p>
+<p>Постоянное смещение (b) исчезает.</p>
+<p>Если искажение процентное, разумнее использовать мультипликативную модель:</p>
+<p>\[
+Y_t=aX_t e^{\varepsilon_t}.
+\]</p>
+<p>После логарифмирования:</p>
+<p>\[
+\log Y_t=\log a+\log X_t+\varepsilon_t.
+\]</p>
+<p>И для разностей:</p>
+<p>\[
+\Delta\log Y_t=\Delta\log X_t+\Delta\varepsilon_t.
+\]</p>
+<p>Постоянный множитель (a) тоже исчезает.</p>
+<p>Это не означает, что любой плохой источник автоматически становится хорошим.</p>
+<p>Если смещение само дрейфует, меняется с контекстом или сознательно управляется, его уже нельзя считать инвариантом. Но тогда <strong>изменение самого механизма ошибки</strong> становится объектом анализа.</p></div></details></article><article class="chapter" id="ch7"><div class="wrap"><h3 class="ch">7. Аномалия — это сломанное ожидание</h3><p>Слово «аномалия» часто понимают слишком просто. Большое число, резкий скачок, точка за три сигмы.</p><p>Но большое число может быть нормальным в декабре и тревожным в июле. Падение трафика ночью укладывается в суточный цикл. Рост продаж после кампании и вовсе ожидаемое поведение. Само отклонение ещё ничего не означает.</p><p>Аномалия возникает не относительно среднего. Она возникает относительно ожидания. Не «сколько обычно продаём?», а «сколько обычно продаём в такой день недели, в этом сезоне, при такой цене и в таком регионе?».</p><p>Норма не сводится к одному числу. Это описание мира, который мы считаем обычным при данных условиях. Диапазон, ритм, сезонность, связи, задержки, привычные ошибки.</p><p>Аномалия не диагноз. Не «поставщик банкрот» и не «рынок разворачивается». Она означает только одно.</p></div><div class="pull"><span>Мы больше не имеем права объяснять происходящее так же, как объясняли его вчера.</span></div><div class="wrap"><p>Это и есть момент начала расследования.</p></div><div class="visual"><canvas data-h="233" id="c-ex"></canvas><div class="ctrl"><label>Амплитуда сезона <input id="exAmp" max="60" min="0" type="range" value="45"/><output id="exAmpV">45%</output></label><label>Событие в июле <input id="exEvt" max="80" min="0" type="range" value="35"/><output id="exEvtV">+35%</output></label></div><p class="cap"><b>Сломанное ожидание.</b> Серая полоса — то, чего ждали в эту неделю года. Июльская точка — аномалия, хотя она ниже январских значений. Общий порог «среднее плюс два сигма» её пропустил бы.</p></div><details class="math"><summary>М3. Как формально описать «сломанное ожидание»</summary><div class="m"><p>Дополнение к главе <strong>«Аномалия — это сломанное ожидание»</strong>.</p>
+<p>Пусть модель нормального режима для контекста (c_t) предсказывает ожидаемое значение (m(c_t)).</p>
+<p>Тогда остаток:</p>
+<p>\[
+r_t=Y_t-m(c_t).
+\]</p>
+<p>Именно остаток, а не исходное значение, разумно сравнивать с исторической нормой.</p>
+<p>Для робастной оценки можно использовать медиану и MAD:</p>
+<p>\[
+z_t^{rob}
+=
+\frac{r_t-\operatorname{median}(r)}
+{1.4826\,MAD(r)}.
+\]</p>
+<p>Коэффициент 1.4826 приводит MAD к масштабу стандартного отклонения для нормального распределения.</p>
+<p>Но порог сам по себе не превращает точку в содержательную аномалию. Для реальных временных рядов нужно учитывать сезонность, автокорреляцию, дрейф, смену дисперсии и множественное тестирование.</p>
+<p>Смысл формулы только один:</p>
+<p><strong>сравнивать наблюдение надо с тем, что ожидалось именно в этом контексте.</strong></p></div></details></article><article class="chapter" id="ch8"><div class="wrap"><h3 class="ch">8. Редкость — ещё не доказательство</h3><p>Здесь проходит граница, которую легко пропустить.</p><p>Есть два разных вопроса. Насколько странно то, что мы увидели? И насколько увиденное поддерживает одну версию мира против другой? Это не одно и то же.</p><p>Событие может происходить один раз на сто тысяч случаев и всё равно почти одинаково плохо объясняться двумя конкурирующими гипотезами. Оно очень странное, но мало помогает выбрать между версиями. И наоборот, маленькая деталь может оказаться решающей, если при одной версии она естественна, а при другой почти невозможна.</p><p>Просьба о предоплате тревожит, но её объясняют и финансовые проблемы, и новая кредитная политика, и требования банка. А отсутствие назначенной машины именно под вашу якобы готовую партию разделяет версии гораздо лучше.</p></div><div class="pull"><span>Необычность привлекает внимание. Диагностичность меняет мнение.</span></div><div class="wrap"><p>Аномалия говорит «посмотри сюда». Свидетельство говорит, что эта версия мира объясняет увиденное лучше другой.</p><p>Путать яркость сигнала с его доказательной силой — одна из самых дорогих аналитических ошибок.</p></div><details class="math"><summary>М4. Неожиданность и доказательная сила — две разные величины</summary><div class="m"><p>Дополнение к главе <strong>«Редкость — ещё не доказательство»</strong>.</p>
+<p>Если в нормальном мире (H_0) наблюдение (E) имеет вероятность (P(E\mid H_0)), его неожиданность можно измерить self-information:</p>
+<p>\[
+I(E)=-\log_2 P(E\mid H_0).
+\]</p>
+<p>Чем событие реже, тем больше бит неожиданности.</p>
+<p>Но для выбора между двумя гипотезами нужна другая величина — отношение правдоподобий:</p>
+<p>\[
+LR(E)=\frac{P(E\mid H_1)}{P(E\mid H_0)}.
+\]</p>
+<p>Или его логарифм:</p>
+<p>\[
+W(E)=\log LR(E).
+\]</p>
+<p>Если событие имеет вероятность (10^{-5}) при (H_0), оно очень необычно.</p>
+<p>Но если при (H_1) вероятность равна (2\times10^{-5}), то:</p>
+<p>\[
+LR=2.
+\]</p>
+<p>Событие чрезвычайно редкое, но лишь вдвое лучше объясняется второй гипотезой.</p>
+<p>Поэтому:</p>
+<p><strong><button class="fn" aria-expanded="false" data-fn="surprisal">surprisal</button> отвечает на вопрос «насколько это странно?», likelihood ratio — «какую версию это поддерживает?»</strong></p><div class="fnote" id="fn-surprisal" hidden><p>Мера неожиданности события в данной модели: минус логарифм его вероятности. Редкое событие несёт много «бит» неожиданности. Но неожиданность — не доказательство: событие может быть очень редким и при этом почти одинаково вероятным при обеих гипотезах. Для сравнения версий нужно отношение правдоподобий.</p></div></div></details></article><article class="chapter" id="ch9"><div class="wrap"><h3 class="ch">9. Хор ненадёжных</h3><p>Один слабый источник может ошибаться. Но что, если одно и то же изменение видно из трёх разных мест?</p><p>Поставщик меняет условия оплаты. Перевозчик фиксирует необычный ритм вывоза. Ваша закупочная система видит срочный заказ компонента, который обычно покупают заранее.</p><p>Каждый канал несовершенен, но причины их ошибок различны. Совпадение становится интересным не потому, что три слабых источника магически превратились в один достоверный, а потому, что один сдвиг проявился через три разных механизма наблюдения.</p><p>Ключевое слово здесь «разных».</p><p>Если отраслевой портал получил сообщение от поставщика, знакомый пересказал портал, а обзор сослался на знакомого, это одна ветка. Если три показателя зависят от одного сбоя ERP, это тоже одна ветка.</p><p>Хорошая система не считает голоса. Она считает независимые способы увидеть реальность.</p><p>И здесь появляется обратная аномалия. Источники, которые годами расходились, вдруг начинают говорить одинаково. Независимые оценки используют одну и ту же странную формулировку. Конкурирующие поставщики синхронно меняют условия.</p><p>Мы привыкли считать согласованность качеством. Но у независимых источников естественен люфт, и иногда слишком хорошее совпадение оказывается самым странным сигналом из всех.</p></div><div class="pull"><span>Когда хор вдруг запел идеально, стоит поискать дирижёра.</span></div><div class="visual"><div class="grid2 even"><canvas data-h="233" id="c-ch-a"></canvas><canvas data-h="233" id="c-ch-b"></canvas></div><div class="ctrl"><label>Сдвиг с 50-й недели, σ <input id="chShift" max="1.5" min="0" step=".1" type="range" value=".6"/><output id="chShiftV">0.6</output></label><label><input id="chConductor" type="checkbox"/> С 90-й недели у хора появляется дирижёр</label></div><p class="cap"><b>Хор.</b> Три шумных независимых канала. Сдвиг, невидимый ни в одном из них, накапливается в сумме и пересекает порог. И обратное: когда источники, обычно расходившиеся, вдруг совпадают идеально — люфт независимых ошибок исчез.</p></div><details class="math"><summary>М5. Как складываются независимые свидетельства</summary><div class="m"><p>Дополнение к главам <strong>«Хор ненадёжных»</strong> и <strong>«Гипотезы должны конкурировать»</strong>.</p>
+<p>В odds-форме правило Байеса выглядит просто:</p>
+<p>\[
+O(H\mid E_1,\ldots,E_n)
+=
+O(H)\prod_i LR_i.
+\]</p>
+<p>В логарифме:</p>
+<p>\[
+\log O(H\mid E_1,\ldots,E_n)
+=
+\log O(H)+\sum_i\log LR_i.
+\]</p>
+<p>То есть независимые свидетельства буквально <strong>складывают вес доказательства</strong>.</p>
+<p>Если наблюдение одинаково вероятно при двух гипотезах:</p>
+<p>\[
+P(E\mid H_a)=P(E\mid H_b),
+\]</p>
+<p>то:</p>
+<p>\[
+LR=1,\qquad \log LR=0.
+\]</p>
+<p>Такое наблюдение может быть ярким, необычным и дорогим в сборе — но оно не различает гипотезы.</p>
+<p>Для зависимых свидетельств простое перемножение применять нельзя: зависимость нужно моделировать явно.</p>
+<p>В грубой симметричной модели равно коррелированных измерений эффективное число независимых наблюдений можно приблизительно выразить как:</p>
+<p>\[
+n_{eff}\approx\frac{n}{1+(n-1)\rho},
+\]</p>
+<p>где (\rho) — средняя корреляция ошибок.</p>
+<p>При (n=10) и (\rho=0.8):</p>
+<p>\[
+n_{eff}\approx1.22.
+\]</p>
+<p>Это не универсальная поправка, а иллюстрация одной мысли:</p>
+<p><strong>десять сильно зависимых каналов могут содержать лишь немного больше информации, чем один независимый.</strong></p></div></details></article><article class="chapter" id="ch10"><div class="wrap"><h3 class="ch">10. То, чего нет</h3><p>Самые интересные сигналы иногда не появляются. Они исчезают.</p><p>Поставщик каждую неделю присылал уточнение графика и перестал. Конкурент каждую весну начинал набор, а в этом году тишина. Канал ежедневно давал тысячу событий; теперь даёт восемьсот, и все восемьсот выглядят идеально.</p><p>Обычная аналитика легко это пропускает. Нет строки, нет события. Но если событие ожидалось, его отсутствие само становится наблюдением.</p><p>Один пропуск может быть случайностью. Три подряд при почти безупречном многолетнем ритме уже нарушение режима.</p><p>Ничего не произошло. И именно поэтому произошло что-то важное.</p><p>Но тишина, как и любой другой сигнал, не даёт готового диагноза. Она требует вопроса.</p></div><div class="pull"><span>Какая версия мира лучше объясняет именно это отсутствие?</span></div><div class="wrap"><p>Разведывательная практика делает следующий ход заранее. Если наша гипотеза верна, что должно появиться дальше? Что исчезнуть? Что уже должно было случиться, но не случилось?</p><p>Так аналитик перестаёт только объяснять прошлое. Он записывает, как должен вести себя будущий мир, если его версия верна, и ждёт. В этот момент гипотеза превращается в систему раннего предупреждения.</p></div><div class="visual"><canvas data-h="144" id="c-abs"></canvas><div class="ctrl"><label>Покрытие с 75-го дня <input id="absCov" max="100" min="60" type="range" value="80"/><output id="absCovV">80%</output></label></div><p class="cap"><b>То, чего нет.</b> Канал отдавал около тысячи событий в день и стал отдавать восемьсот. Каждое из восьмисот нормально. Покрытие — нет.</p></div><details class="math"><summary>М6. Сколько весит тишина</summary><div class="m"><p>Дополнение к главе <strong>«То, чего нет»</strong>.</p>
+<p>Если ожидаемое еженедельное сообщение приходит с вероятностью 98%, вероятность одного пропуска равна:</p>
+<p>\[
+q=0.02.
+\]</p>
+<p>Если причины пропусков независимы, три пропуска подряд:</p>
+<p>\[
+q^3=0.02^3=8\times10^{-6}.
+\]</p>
+<p>То есть примерно один случай на 125 000 таких троек.</p>
+<p>Неожиданность этого наблюдения:</p>
+<p>\[
+-\log_2(8\times10^{-6})\approx16.9\text{ бит}.
+\]</p>
+<p>Отсюда фраза из книги: «тишина тоже имеет вес».</p>
+<p>Но если три пропуска имеют одну общую причину, произведение вероятностей использовать нельзя.</p>
+<p>И даже 16.9 бит неожиданности не доказывают конкретную гипотезу, пока не сравниваются вероятности такой тишины при конкурирующих объяснениях.</p></div></details></article></section><section class="part" data-theme="light" id="part3"><div class="wide"><div class="opener"><div class="n">Часть третья</div><h2>Сборка</h2><canvas class="trace" data-state="p3"></canvas><p class="cap">Сборка — из неполных и неоднородных свидетельств формируется связная структура источников, зависимостей, версий и различающих признаков.</p></div></div><article class="chapter" id="ch11"><div class="wrap"><h3 class="ch">11. Концепция, которая убивает</h3><p>Шестого октября 1973 года Египет и Сирия атаковали Израиль. Перед войной тревожные признаки были видны, но значительная часть их читалась через уже сложившуюся систему представлений, которую называли Концепцией.</p><p>Если исходное допущение говорило, что война сейчас маловероятна, подготовка получала удобные объяснения. Учения, давление, демонстрация.</p><p>Для нас важен механизм. Плохое допущение превращает хорошие данные в плохой вывод.</p><p>У бизнеса свои Концепции. «Этот поставщик надёжен, десять лет работаем». «Этот клиент никогда не уйдёт». «Если бы проблема была серьёзной, мы бы уже увидели её в отчётности».</p><p>Поэтому после устойчивого слома ожидания полезнее сначала спросить о другом.</p></div><div class="pull"><span>Какое наше представление о мире должно быть верным, чтобы происходящее всё ещё считалось нормальным?</span></div><div class="wrap"><p>А затем спросить, что будет, если оно больше неверно.</p><p>Анормальность ценна тем, что атакует не число. Она атакует модель мира.</p></div></article><article class="chapter" id="ch12"><div class="wrap"><h3 class="ch">12. Гипотезы должны конкурировать</h3><p>Самая опасная версия — та, которая первой достаточно хорошо объяснила происходящее. После неё мозг начинает собирать подтверждения.</p><p>Разведаналитики формализовали защиту от этого в методе <button class="fn" aria-expanded="false" data-fn="AnalysisofCompetingHypot">сопоставления конкурирующих гипотез</button>. Но принцип проще названия. Не защищайте одну историю, заставьте несколько историй конкурировать за одни и те же наблюдения.</p><div class="fnote" id="fn-AnalysisofCompetingHypot" hidden><p>Метод, разработанный Ричардсом Хойером в ЦРУ. Аналитик выписывает все правдоподобные гипотезы, затем все свидетельства, и заполняет матрицу: каждое свидетельство против каждой гипотезы — совместимо, несовместимо, нейтрально. Выбирается гипотеза с наименьшим числом несовместимостей, а не с наибольшим числом подтверждений: подтверждений у правдоподобной версии всегда много, ценны свидетельства, которые версию исключают.</p></div><p>Просьба о предоплате тревожит, но объясняет сразу несколько версий. Перенос машин тоже может быть и производством, и перевозчиком. А затем появляется маленькая деталь.</p></div><div class="pull"><span>Машина под вашу конкретную партию не назначена.</span></div><div class="wrap"><p>Если партия готова и проблема только в расписании перевозчика, это неудобное наблюдение. Если партия не готова, оно естественно.</p><p>Хороший анализ не накапливает подтверждения. Он сокращает число объяснений, способных пережить наблюдаемое.</p><p class="lead"><span>Не ищите то, что подтверждает вашу версию. Ищите то, что разделяет версии.</span></p></div><div class="visual"><div id="ach"></div><div class="ctrl"></div><p class="cap"><b>Понедельник в одной таблице.</b> C — совместимо, I — несовместимо. Побеждает столбец с наименьшим числом I. Одна строка различает версии: машина под партию не назначена.</p></div></article><article class="chapter" id="ch13"><div class="wrap"><h3 class="ch">13. Назначенный скептик</h3><p>У альтернативной версии на совещании есть одна проблема. У неё нет должности.</p><p>Поэтому сомнение лучше сделать не чертой характера, а функцией процесса. В разведанализе для этого существует <button class="fn" aria-expanded="false" data-fn="DevilsAdvocacy">назначенный оппонент</button>. Кто-то обязан построить лучшую версию против преобладающего объяснения.</p><div class="fnote" id="fn-DevilsAdvocacy" hidden><p>Одна из структурированных аналитических техник: назначенный человек обязан построить лучшую возможную версию против преобладающего объяснения. Не потому, что оно неверно, а потому, что оценка, которую никто не пытался опровергнуть, не проверена. После войны 1973 года в израильской военной разведке такое подразделение создали официально — как институт, а не как черту характера.</p></div><p>Если всем нравятся семь подтверждений, он проверяет, не одно ли это эхо. Если все спокойны, спрашивает, что должно было появиться, но исчезло. Если модель выдаёт 97,3%, выясняет, чем эта уверенность произведена.</p><p>Формальное поручение можно сократить до одной строки.</p></div><div class="pull"><span>Найди, где наша уверенность произведена самой моделью, а не реальностью.</span></div><div class="wrap"><p>Это не спор с начальником. Это контроль качества мышления.</p></div></article><article class="chapter" id="ch14"><div class="wrap"><h3 class="ch">14. Тот же метод, другой знак</h3><p>Анормальность не обязана быть угрозой.</p><p>Представьте страницу сайта, которая третью неделю конвертирует около шести процентов при обычных одном–полутора. Это не красная лампа, поэтому такой сдвиг легко оставить без расследования. Но метод тот же.</p><p>Боты? Ошибка трекинга? Неучтённая кампания? Или на странице действительно появилось что-то, что работает лучше?</p><p>После проверки технических объяснений остаётся рабочая гипотеза. Необычный длинный отзыв клиента меняет поведение посетителей. Это ещё не истина, а версия, которую теперь можно проверить экспериментом на других страницах. Если эффект повторяется, случайная положительная анормальность превращается в новое знание о системе.</p></div><div class="pull"><span>Возможность тоже начинается раньше, чем получает название.</span></div><div class="wrap"><p>Если аналитика ищет только угрозы, она превращается в службу безопасности. Настоящий метод симметричен. Он ищет смену режима независимо от знака.</p></div><div class="visual"><div class="grid2 even"><canvas data-h="260" id="c-opp-a"></canvas><canvas data-h="260" id="c-opp-b"></canvas></div><div class="ctrl"><label>Конверсия страницы <input type="range" id="opRate" min="1" max="8" step=".1" value="6"><output id="opRateV">6,0 %</output></label><label>Недель подряд <input type="range" id="opWeeks" min="1" max="6" value="3"><output id="opWeeksV">3</output></label><span class="verdict" id="opVerdict"></span></div><p class="cap"><b>Тот же метод, другой знак.</b> Триста страниц одного типа задают распределение. Одна неделя за квантилем — выброс; три подряд — режим. Математика та же, что для угроз.</p></div></article></section><section class="part" data-theme="light" id="part4"><div class="wide"><div class="opener"><div class="n">Часть четвёртая</div><h2>Оценка</h2><canvas class="trace" data-state="p4"></canvas><p class="cap">Оценка — обоснованное представление о том, что происходит и что вероятнее всего последует. Не истина и не факт, а рабочая оценка.</p></div></div><article class="chapter" id="ch15"><div class="wrap"><h3 class="ch">15. Слова, которые весят</h3><p>Одна из старых проблем разведанализа звучит почти комично. Что означает слово «вероятно»?</p><p><button class="fn" aria-expanded="false" data-fn="ШерманКент">Шерман Кент</button> показывал, что разные люди вкладывают в одинаковые слова очень разные вероятности.</p><div class="fnote" id="fn-ШерманКент" hidden><p>Один из основателей аналитической школы ЦРУ. Обнаружил, что коллеги, подписавшие одну и ту же оценку с формулировкой «серьёзная вероятность», вкладывали в неё числа от двадцати до восьмидесяти процентов. Предложил закрепить за словами диапазоны вероятностей — «почти наверняка», «вероятно», «маловероятно» — чтобы суждение читалось одинаково автором и адресатом.</p></div><p>Представьте записку, в которой сказано, что существует серьёзный риск срыва поставки. Что делать? Резервировать, переключаться или ждать? Фраза не отвечает.</p><p>Поэтому аналитический продукт должен разводить то, что корпоративные записки обычно смешивают. Наблюдение, вывод, вероятность, качество оснований, альтернативы, условие пересмотра и действие.</p><p>Можно считать событие вероятным, но иметь слабые основания. Можно считать его маловероятным и быть весьма уверенным в этой оценке.</p><p>Фраза «есть риск» не аналитический продукт. Это уведомление о тревоге.</p><p>Но даже хорошо оценённая вероятность ещё не финал. Организация существует не для того, чтобы правильно угадывать проценты. Она существует, чтобы правильно действовать.</p></div></article><article class="chapter" id="ch16"><div class="wrap"><h3 class="ch">16. Не вероятность. Граница</h3><p>Вернёмся к резервному окну до четырёх.</p><p>Срыв поставки дорог. Резерв стоит денег, но сохраняет вариант. Полное переключение ещё дороже, зато почти убирает последствия срыва.</p><p>Можно долго спорить о точной вероятности проблемы. Но сначала нужен другой вопрос.</p></div><div class="pull"><span>При какой вероятности нам вообще следует менять действие?</span></div><div class="wrap"><p>Для нашей условной экономики получаются две границы. Примерно до 14% рациональнее ничего не делать. От 14% до 80% стоит сохранить основного поставщика, но купить резерв. Выше 80% выгоднее переключиться полностью.</p><p>Это не универсальные числа. Универсален сам принцип.</p><p>Теперь команда говорит, что честный диапазон риска от 20 до 60%. Для любителя точных цифр это выглядит плохо. Для решения этого достаточно. Весь диапазон лежит в одной зоне, и зона эта называется «резервировать». Значит, дополнительная точность сейчас ничего не меняет.</p><p>И здесь появляется, возможно, самый важный объект книги.</p><p class="lead"><span>Не вероятность события, а расстояние до границы, где действие должно измениться.</span></p><p>Далеко от границы спор о нескольких процентах почти бесполезен. Рядом с ней слабое новое свидетельство способно поменять решение. Один и тот же сигнал поэтому имеет разную управленческую ценность в разных точках.</p><p>Слабого основания может хватить, чтобы купить дешёвый резерв. Для полного отказа от поставщика потребуется доказательство совсем другой силы. Разные действия требуют разной уверенности.</p><p>Система раннего предупреждения должна спрашивать не только о том, насколько вероятна проблема.</p><p class="lead"><span>Сколько ещё оснований нужно, чтобы рационально действовать иначе?</span></p></div><div class="visual"><div class="grid2 even"><canvas data-h="233" id="c-loss"></canvas><div class="evsi" id="evsi"></div></div><div class="ctrl"><label>Оценка вероятности срыва <input id="lossP" max="100" min="0" type="range" value="40"/><output id="lossPV">40%</output></label><span class="verdict" id="lossVerdict"></span></div><p class="cap"><b>Граница.</b> Ожидаемые потери трёх действий как функции вероятности. Действие меняется только на 14 и на 80. Диапазон команды 20–60 целиком внутри одной зоны. Справа — что даст экспресс-проверка при текущей оценке.</p></div><details class="math"><summary>М7. Откуда берутся границы 14,3% и 80%</summary><div class="m"><p>Дополнение к главе <strong>«Не вероятность. Граница»</strong>.</p>
+<p>Пусть (p) — вероятность срыва.</p>
+<p>Условные ожидаемые потери трёх действий:</p>
+<p>Ничего не делать:</p>
+<p>\[
+L_0(p)=10p.
+\]</p>
+<p>Зарезервировать альтернативную мощность:</p>
+<p>\[
+L_1(p)=1+3p.
+\]</p>
+<p>Полностью переключиться:</p>
+<p>\[
+L_2(p)=3+0.5p.
+\]</p>
+<p>Первая граница находится из равенства:</p>
+<p>\[
+10p=1+3p.
+\]</p>
+<p>Отсюда:</p>
+<p>\[
+p=\frac17\approx14.3\%.
+\]</p>
+<p>Вторая:</p>
+<p>\[
+1+3p=3+0.5p,
+\]</p>
+<p>откуда:</p>
+<p>\[
+p=0.8.
+\]</p>
+<p>Поэтому в этой условной модели:</p>
+<ul>
+<li>ниже 14,3% — ничего не делать;</li>
+<li>от 14,3% до 80% — резервировать;</li>
+<li>выше 80% — переключаться.</li>
+</ul>
+<p>Главное здесь не сами числа.</p>
+<p><strong>Требуемая точность вероятности определяется тем, насколько близко вы находитесь к границе смены действия.</strong></p>
+<p>Если исходная вероятность равна 10%, её odds равны (1/9).</p>
+<p>Граница резервирования (1/7) соответствует odds (1/6).</p>
+<p>Чтобы перейти от (1/9) к (1/6), достаточно отношения правдоподобий:</p>
+<p>\[
+LR=\frac{1/6}{1/9}=1.5.
+\]</p>
+<p>Слабого свидетельства может хватить для изменения действия.</p>
+<p>Чтобы перейти от 10% сразу к 80%, нужны odds 4 вместо (1/9):</p>
+<p>\[
+LR=\frac{4}{1/9}=36.
+\]</p>
+<p>То есть разным решениям действительно требуется разная сила доказательства.</p></div></details></article><article class="chapter" id="ch17"><div class="wrap"><h3 class="ch">17. Цена проверки</h3><p>Теперь понятно, когда имеет смысл собирать ещё информацию. Не когда нам любопытно и не когда хочется чувствовать себя увереннее. А когда новая информация способна перевести нас через границу действия.</p><p>Пусть текущая оценка риска около сорока процентов, и мы резервируем. Есть экспресс-проверка готовности партии. Тревожный результат способен перевести оценку выше границы полного переключения, спокойный опустит её ниже границы, где резерв вообще нужен.</p><p>Вот полезная проверка. Её возможные ответы ведут к разным действиям.</p><p>Теперь её цену можно сравнить с ожидаемой пользой. Если более правильный выбор в среднем стоит больше проверки, проверяем. Если меньше, нет.</p><p>И есть ещё цена времени. Точный ответ, пришедший после закрытия резервного окна, может стоить меньше грубого ответа, полученного за двадцать минут.</p><p>Мы привыкли считать хорошей информацию, которая уменьшает неопределённость. Но для управления этого недостаточно.</p></div><div class="pull"><span>Информация ценна, если способна изменить действие до того, как действие станет невозможным.</span></div><div class="wrap"><p>Вот где заканчивается аналитика ради знания и начинается аналитика ради выбора.</p></div><details class="math"><summary>М8. Как посчитать цену дополнительной проверки</summary><div class="m"><p>Дополнение к главе <strong>«Цена проверки»</strong>.</p>
+<p>Пусть текущая вероятность проблемы:</p>
+<p>\[
+P(H)=0.4.
+\]</p>
+<p>Тест имеет чувствительность 80%:</p>
+<p>\[
+P(+\mid H)=0.8,
+\]</p>
+<p>и ложноположительную вероятность 10%:</p>
+<p>\[
+P(+\mid\neg H)=0.1.
+\]</p>
+<p>Вероятность тревожного результата:</p>
+<p>\[
+P(+)=0.8\times0.4+0.1\times0.6=0.38.
+\]</p>
+<p>После тревожного результата:</p>
+<p>\[
+P(H\mid+)
+=
+\frac{0.8\times0.4}{0.38}
+\approx84.2\%.
+\]</p>
+<p>После спокойного:</p>
+<p>\[
+P(H\mid-)
+=
+\frac{0.2\times0.4}
+{0.2\times0.4+0.9\times0.6}
+\approx12.9\%.
+\]</p>
+<p>То есть положительный результат переводит нас выше границы полного переключения, а отрицательный — ниже границы резервирования.</p>
+<p>Без теста при (p=0.4) оптимально резервирование:</p>
+<p>\[
+L_1(0.4)=1+3\times0.4=2.2.
+\]</p>
+<p>После теста ожидаемые потери при оптимальном действии в каждом исходе составляют примерно 2.1 условной единицы.</p>
+<p>Ценность теста до его стоимости — около 0.1.</p>
+<p>Если проверка стоит меньше этого и не уничтожает окно решения, она имеет положительную ожидаемую ценность.</p></div></details></article><article class="chapter" id="ch18"><div class="wrap"><h3 class="ch">18. До четырёх</h3><p>В половине третьего на стол руководителю ложится одна страница. Не сорок слайдов, не дашборд и не выгрузка. Одна страница.</p></div><div class="page"><div class="sheet">
+<div class="meta"><span>Поставщик S · поставка №4471</span><span>понедельник, 14:30</span></div>
+<div class="q">Нужно ли сегодня до 16:00 оплатить резервную производственную мощность?</div>
+<dl>
+<dt>Оценка</dt><dd>Срыв основной поставки не установлен. Поведение поставщика изменилось относительно обычного режима. Часть логистических отклонений объясняется перестройкой маршрутов. Готовность партии и назначение транспорта не подтверждены.</dd>
+<dt>Что сломалось</dt><dd>Ритм подтверждений, условия оплаты и характер ответа на конкретные вопросы — три разных типа отклонений от прежнего режима.</dd>
+<dt>Живые версии</dt><dd>Производственная проблема; финансовая проблема; нормальная перестройка условий. Версия «только перевозчик» ослабла после проверки других маршрутов.</dd>
+<dt>Происхождение</dt><dd>Публикации сведены к одной группе источника. Данные перевозчика и внутренние закупочные наблюдения — отдельные каналы.</dd>
+<dt>Вероятность</dt><dd>Точная оценка неустойчива; рабочий диапазон 20–60 % лежит внутри зоны, где резервирование остаётся оптимальным действием.</dd>
+<dt>Рекомендация</dt><dd class="rec">Сохранить основную поставку и оплатить ограниченный резерв.</dd>
+<dt>Что изменит действие</dt><dd>Независимое подтверждение физической готовности партии и назначенного времени погрузки до 15:30.</dd>
+<dt>Следующий шаг</dt><dd>Если подтверждение не получено — резервировать. Если получено — пересчитать оценку до 15:45.</dd>
+</dl>
+</div></div><div class="wrap"><p>Вот и весь продукт.</p><p>Он не обещает узнать истину к четырём. Он обещает подготовить решение к четырём. Это принципиальная разница.</p><p>В обычной аналитике работа часто заканчивается выводом. В аналитике аномалий вывод — только промежуточное звено между изменением мира и действием.</p></div></article></section><section class="part" data-theme="light" id="part5"><div class="wide"><div class="opener"><div class="n">Часть пятая</div><h2>Фора</h2><canvas class="trace" data-state="p5"></canvas><p class="cap">Фора — время между моментом, когда оценки уже достаточно для действия, и моментом, когда всё станет очевидным для остальных.</p></div></div><article class="chapter" id="ch19"><div class="wrap"><h3 class="ch">19. Два контура</h3><p>Если построить только систему обнаружения аномалий, через год она начнёт раздражать всех. Тревог станет много, часть окажется пустой, часть событий система пропустит, и люди научатся обходить уведомления.</p><p>Поэтому нужен второй контур.</p><p>Первый контур оперативный.</p></div><div class="pull"><span>аномалия → гипотезы → свидетельства → решение</span></div><div class="wrap"><p>Он отвечает на вопрос, что делать сейчас.</p><p>Второй контур обучающий.</p><p class="lead"><span>исход → разбор → обновление нормы → источников → правил решения</span></p><p>Он отвечает на вопрос, чему нас научила собственная ошибка.</p><p>Если поставщик в четверг всё-таки привёз вовремя, резервирование не становится ошибкой автоматически. Правильное решение может закончиться плохим исходом, а плохое — хорошим. Нужно оценивать решение по информации, доступной в тот момент.</p><p>И отдельно оценивать качество самих прогнозов. Если аналитик много раз говорит «70%», событие должно происходить примерно в семи похожих случаях из десяти. Это калибровка.</p><p>Но можно всегда говорить базовые «30%» и быть неплохо калиброванным, оставаясь бесполезным. Нужна ещё способность различать режимы, то есть повышать оценку именно тогда, когда мир действительно изменился.</p><p>И обязательно разбирать не только тревоги, но и тихие периоды.</p><p class="lead"><span>Не происходило ли там важных изменений, которые мы вообще не заметили?</span></p><p>Иначе система будет учиться только на собственных срабатываниях и постепенно доказывать сама себе собственную полезность.</p><p>Так появляется память организации о том, как она ошибается, пытаясь увидеть будущее раньше факта.</p></div><div class="visual"><canvas data-h="300" id="c-cal"></canvas><div class="ctrl"><label>Самоуверенность <input type="range" id="calOver" min="0" max="100" value="0"><output id="calOverV">0</output></label><label>Разрешающая способность <input type="range" id="calRes" min="0" max="100" value="100"><output id="calResV">100</output></label><span class="verdict" id="calVerdict"></span></div><p class="cap"><b>Калибровка.</b> По горизонтали — что аналитик говорил, по вертикали — как часто сбывалось. Самоуверенность гнёт кривую под диагональ; потеря разрешающей способности прижимает её к базовой частоте. Показатель Брайера чувствует и то, и другое.</p></div><details class="math"><summary>М9. Почему одной калибровки мало</summary><div class="m"><p>Дополнение к главе <strong>«Два контура»</strong>.</p>
+<p>Калибровка отвечает на вопрос:</p>
+<p>если мы много раз говорили «70%», происходило ли событие примерно в 70% таких случаев?</p>
+<p>Но прогноз может быть хорошо калиброван и почти ничего не различать.</p>
+<p>Один из стандартных способов оценивать вероятностный прогноз — <button class="fn" aria-expanded="false" data-fn="Brierscore">показатель Брайера</button>:</p><div class="fnote" id="fn-Brierscore" hidden><p>Мера качества вероятностного прогноза: средний квадрат разности между заявленной вероятностью и фактическим исходом (0 или 1). Ноль — идеально, 0,25 — как монета. В классическом разложении отдельно видны калибровка (сбывается ли «70%» в семидесяти процентах случаев) и разрешающая способность (умеет ли прогноз отличать опасные случаи от безопасных). Одной калибровки мало: можно всегда называть базовую частоту и быть калиброванным, но бесполезным.</p></div>
+<p>\[
+BS=\frac1N\sum_{i=1}^{N}(p_i-y_i)^2,
+\]</p>
+<p>где (p_i) — прогноз вероятности, а (y_i\in{0,1}) — исход.</p>
+<p>В классическом разложении Brier score отдельно проявляются:</p>
+<ul>
+<li>reliability — калибровка;</li>
+<li>resolution — способность давать разные вероятности для действительно разных режимов;</li>
+<li>uncertainty — неопределённость самой среды.</li>
+</ul>
+<p>Поэтому хорошая система должна быть не только честной в своих процентах.</p>
+<p>Она должна <strong>разделять мир на случаи, где риск действительно разный</strong>.</p></div></details></article><article class="chapter" id="ch20"><div class="wrap"><h3 class="ch">20. Предел</h3><p>Есть ещё одна вещь, которую хорошая аналитика знает о себе. Иногда ответ невозможно получить из тех наблюдений, которые у вас есть.</p><p>Представьте два мира. В первом у поставщика производственная проблема. Во втором её нет, но по другой причине он создаёт для вас точно такое же наблюдаемое поведение. Те же письма, задержки, платежи и ответы.</p><p>Если всё, что вы способны увидеть, одинаково в обоих мирах, никакой алгоритм их не различит. Ни искусственный интеллект, ни тысяча аналитиков, ни ещё десять лет тех же показателей.</p></div><div class="pull"><span>В наблюдениях просто нет различия, которое можно извлечь.</span></div><div class="wrap"><p>Отсюда практический вывод. Больше данных не всегда означает больше знания. Ещё один отчёт того же типа может лишь подробнее показать ту же неразличимость.</p><p>Нужна новая точка наблюдения. Физическая проверка партии, независимый перевозчик, другой тип транзакции, новый сенсор, другой вопрос. Как только новый канал ведёт себя по-разному в двух возможных мирах, различение снова становится возможным.</p><p class="lead"><span>Когда два мира выглядят одинаково из вашей точки наблюдения, нужны не ещё данные. Нужны другие данные.</span></p><p>Плохая аналитика прячет этот предел за уверенным числом. Хорошая способна сказать, что причины мы не знаем, но для решения уже знаем достаточно.</p></div><div class="visual"><div class="grid2 even"><canvas data-h="260" id="c-id-a"></canvas><canvas data-h="260" id="c-id-b"></canvas></div><div class="ctrl"><label>Различие миров в новом канале <input type="range" id="idSep" min="0" max="4" step=".1" value="0"><output id="idSepV">0</output></label><span class="verdict" id="idVerdict"></span></div><p class="cap"><b>Предел.</b> Слева два мира с одинаковыми наблюдениями: лучший результат — монета. Двигайте ползунок: новый канал разводит распределения, и различение становится возможным. Нужны не ещё данные, а другие.</p></div><details class="math"><summary>М10. Почему некоторые миры невозможно различить</summary><div class="m"><p>Дополнение к главе <strong>«Предел»</strong>.</p>
+<p>Пусть все доступные наблюдения имеют распределение (P_0) в одном возможном мире и (P_1) — в другом.</p>
+<p>При равных априорных вероятностях минимальная ошибка бинарного различения связана с total variation distance:</p>
+<p>\[
+P_e^*=\frac{1-TV(P_0,P_1)}{2}.
+\]</p>
+<p>Если:</p>
+<p>\[
+P_0=P_1,
+\]</p>
+<p>то:</p>
+<p>\[
+TV(P_0,P_1)=0
+\]</p>
+<p>и:</p>
+<p>\[
+P_e^*=\frac12.
+\]</p>
+<p>Никакой классификатор не сможет делать это лучше случайного выбора.</p>
+<p>Не потому, что ему не хватает данных или вычислений.</p>
+<p>Потому что <strong>наблюдаемая информация в двух мирах одинакова</strong>.</p>
+<p>Чтобы задача снова стала разрешимой, нужен новый канал (Z), для которого:</p>
+<p>\[
+P_0(Z)\neq P_1(Z).
+\]</p>
+<p>То есть не «больше того же».</p>
+<p><strong>Другой способ увидеть мир.</strong></p></div></details></article></section><section class="part" data-theme="dark" id="ch21"><article class="chapter" id="ch21"><div class="wrap"><h3 class="ch">21. Кто вы теперь</h3><p>Вернёмся к понедельнику.</p><p>Тот же экран, те же зелёные показатели. Но теперь вы уже не можете видеть их прежними. Зелёный означает только одно. Подтверждённая модель мира пока не зафиксировала проблему.</p><p>Вы знаете, что слабый источник можно не выбрасывать, если сначала понять характер его ошибки; что семь сообщений могут оказаться одним эхом; что у ненадёжного канала бывают устойчивые инварианты; что аномалия не большое число, а момент, когда прежнее объяснение перестало работать; что странность ещё не доказательство и хорошие гипотезы должны конкурировать; что вероятность события ещё не решение, а больше данных иногда вообще не добавляют знания.</p><p>Это уже не набор приёмов. Это другой способ видеть организацию.</p><p>Через месяц вы входите в переговорную и говорите:</p><p>«У поставщика изменился режим поведения. Я ещё не знаю причины. Но два независимых канала сломали обычные связи, две версии из четырёх уже не выдерживают наблюдений, а текущих оснований достаточно для резерва. Вот что изменит решение. Вот срок».</p><p>Вас спрашивают:</p><p>«То есть вы не знаете наверняка?»</p><p>«Нет. Но нам уже не нужно знать наверняка».</p><p>В этот момент меняется ваша работа. Вы перестаёте быть человеком, который докладывает о произошедшем. Вы приносите изменение картины мира раньше, чем оно получает имя.</p><p>Казначейство становится финансовой разведкой и видит, как меняется платёжное поведение контрагента, за недели до первой просрочки. Закупки становятся снабженческой разведкой. Они замечают, что поставщик сменил режим, раньше всякого уведомления, по ритму подтверждений и по тому, чего в этих подтверждениях больше нет. Маркетинг становится рыночной разведкой и ловит сдвиг спроса, пока рынок ещё не подобрал ему названия. HR становится кадровой разведкой и читает перемены в поведении организации, пока они не стали текучестью.</p><p>Риск больше не смотрит только на событие.</p></div><div class="pull"><span>Он видит расстояние до смены решения.</span></div><div class="wrap"><p>А руководитель перестаёт быть человеком, которому последнему приносят подтверждённый факт.</p><p>Дашборд остаётся. Это отличный прибор контроля прошлого. Но управление начинается там, где будущее ещё допускает несколько прочтений и выбор ещё существует.</p><p>Вот другой.</p></div><div class="screen"><div class="ai" id="ai">
+ <div class="ai-class"><span>АНАЛИТИЧЕСКИЙ КОНТУР · ОПЕРАТИВНАЯ ОЦЕНКА</span><span>ДЕЛО 0914-S · ОБНОВЛЕНО 14:32</span></div>
+ <div class="ai-bar">
+  <div class="ai-obj"><span class="k">Объект</span><b>Поставщик S</b><span class="k">Поставка</span><b>№4471</b><span class="k">Дело</span><b>0914-S</b></div>
+  <div class="ai-tabs"><button class="on" data-tab="overview">Обстановка</button><button data-tab="sources">Источники</button><button data-tab="versions">Версии</button><button data-tab="decision">Решение</button><button data-tab="outcome">Исход</button></div>
+  <div class="ai-time" id="ai-time">пн 14 сен · 14:32 · до срока 1:28</div>
+ </div>
+ <div class="ai-kpi-strip">
+  <div class="ai-kpi"><span>НЕВЯЗКА</span><b>6 признаков</b><em>4 типа отклонений</em></div>
+  <div class="ai-kpi"><span>КАНАЛЫ</span><b>3 независимых</b><em>6 источников</em></div>
+  <div class="ai-kpi"><span>ВЕРСИИ</span><b id="ai-kpi-versions">2 живых</b><em>2 уже отпали</em></div>
+  <div class="ai-kpi hot"><span>ДО РЕШЕНИЯ</span><b>1:28</b><em>окно закрывается 16:00</em></div>
+  <div class="ai-kpi accent"><span>ФОРА</span><b>≈72 ч</b><em>до подтверждённого факта</em></div>
+ </div>
+ <div class="ai-decision">
+  <div><div class="ai-mission">РЕШЕНИЕ ДО 16:00</div><div class="big" id="ai-rec">Резервировать.<br>Проверку заказать.</div><div class="ai-subrec">Основной контракт сохранить. Оплатить ограниченный резерв, пока окно ещё открыто.</div></div>
+  <div class="ai-brief">
+   <div class="ai-brief-label">КЛЮЧЕВОЙ ВОПРОС</div><div class="ai-brief-q">Физически готова ли партия №4471?</div>
+   <div class="why"><span><i>оценка</i><b id="ai-est">20–60 %</b><em id="ai-zone">вся в зоне резерва</em></span><span><i>версий</i><b id="ai-alive">2 живых</b><em>из 4</em></span><span><i>что различает</i><b>назначена ли машина под №4471</b><em>ключевое наблюдение</em></span><span><i>переубедит</i><b>готовность и погрузка до 15:30</b><em>проверка заказана 14:35</em></span></div>
+  </div>
+ </div>
+
+ <div class="ai-view" data-view="overview">
+  <div class="ai-grid">
+   <div class="ai-col"><div class="h"><span>Источники</span><span>Admiralty</span></div><div id="ai-srclist"></div></div>
+   <div class="ai-col"><div class="h"><span>Происхождение и связи</span><span>12 объектов · 14 связей</span></div><div class="ai-sitrep"><b>Невязка:</b> подтверждённая поставка существует в отчёте, но физическая готовность партии не подтверждается поведением независимых каналов.</div><canvas id="ai-graph" data-h="233"></canvas>
+    <div class="h"><span>Накопленное отклонение</span><span>3 канала · порог 5</span></div><canvas id="ai-cusum" data-h="144"></canvas></div>
+   <div class="ai-col"><div class="h"><span>Версии</span><span>несовместимостей</span></div><div id="ai-hyplist"></div>
+    <div class="h"><span>Граница действия</span><span>ожидаемые потери, млн</span></div><canvas id="ai-loss" data-h="144" class="clickable"></canvas>
+    <div class="h"><span>Задача на сбор</span><span>до 15:30</span></div><div class="ai-task" id="ai-check"></div></div>
+  </div>
+ </div>
+
+ <div class="ai-view" data-view="sources" hidden>
+  <div class="ai-grid two">
+   <div class="ai-col"><div class="h"><span>Реестр источников</span><span>6</span></div><table class="ai-table" id="ai-srctable"></table></div>
+   <div class="ai-col"><div class="h"><span>Паспорт</span><span id="ai-pp-code"></span></div><div id="ai-passport"></div><canvas id="ai-pp-chart" data-h="233"></canvas><div class="ai-kv" id="ai-pp-kv"></div></div>
+  </div>
+ </div>
+
+ <div class="ai-view" data-view="versions" hidden>
+  <div class="ai-grid two">
+   <div class="ai-col"><div class="h"><span>Матрица конкурирующих версий</span><span>C · n · I</span></div><div class="ai-sitrep"><b>Правило:</b> не ищем подтверждения любимой версии. Ищем наблюдение, которое способно разделить версии.</div><div id="ai-ach"></div></div>
+   <div class="ai-col"><div class="h"><span>Если версия верна</span><span id="ai-hyp-name"></span></div><div id="ai-hyp-detail"></div></div>
+  </div>
+ </div>
+
+ <div class="ai-view" data-view="decision" hidden>
+  <div class="ai-grid two">
+   <div class="ai-col"><div class="h"><span>Ожидаемые потери</span><span>млн, условно</span></div><canvas id="ai-loss2" data-h="233"></canvas>
+    <div class="ai-ctrl"><label>Оценка вероятности срыва <input type="range" id="ai-p" min="0" max="100" value="40"><output id="ai-pv">40 %</output></label><label>Ширина диапазона <input type="range" id="ai-w" min="0" max="40" value="20"><output id="ai-wv">±20</output></label></div></div>
+   <div class="ai-col"><div class="h"><span>Матрица потерь</span><span>млн</span></div><table class="ai-table"><tr><th>Действие</th><th>срыва нет</th><th>срыв</th><th>ожидание</th></tr><tr><td>Сохранить план</td><td>0</td><td>10</td><td id="ai-l0"></td></tr><tr><td>Резервировать</td><td>1</td><td>4</td><td id="ai-l1"></td></tr><tr><td>Переключиться</td><td>3</td><td>3,5</td><td id="ai-l2"></td></tr></table>
+    <div class="h"><span>Экспресс-проверка</span><span>чувств. 80 % · ложн. 10 %</span></div><div class="ai-note" id="ai-evsi"></div></div>
+  </div>
+ </div>
+
+ <div class="ai-view" data-view="outcome" hidden>
+  <div class="ai-grid two">
+   <div class="ai-col"><div class="h"><span>Хронология дела</span><span>0914-S</span></div><div id="ai-timeline"></div></div>
+   <div class="ai-col"><div class="h"><span>Калибровка</span><span>квартал · 34 оценки</span></div><canvas id="ai-calib" data-h="233"></canvas><div class="ai-kv"><span>«около 70 %»</span><b>сбылось 68 %</b><span>Brier</span><b>0,17</b><span>исход по делу</span><b>четверг 17.09 — ожидается</b></div></div>
+  </div>
+ </div>
+ <div class="ai-foot"><span>Исход: <b>четверг, 17.09 — </b></span><span>Калибровка за квартал: из оценок «около 70 %» сбылось <b>68 %</b> · Brier 0,17</span></div>
+</div></div><div class="wrap"><p>Здесь меняется смысл аналитики.</p><p>Конечный продукт аналитики не отчёт, не прогноз и даже не предупреждение. Её продукт — фора. Это интервал между первым наблюдаемым изменением и моментом, когда это изменение становится очевидным для всех.</p><p>Большинство компаний отдают этот интервал добровольно. Они ждут факта.</p><p>Анормальность и есть этот промежуток. Старый мир уже перестал быть прежним, а новый ещё не стал очевидным.</p><p class="lead"><span>Анормальность начинается в момент невязки и заканчивается там, где из неполноты собрана оценка, достаточная для получения форы.</span></p><p>Тот, кто умеет работать в этом промежутке, получает время на своей стороне.</p><p>Не чтобы знать всё, а чтобы увидеть раньше. Не чтобы всегда быть правым, а чтобы иметь выбор тогда, когда у остальных его уже нет.</p></div></article></section><footer><div class="page-w"><div class="row"><span>© Юрий Клочко, 2026 · бета-редакция</span><span><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.ru" rel="license">CC BY-NC-ND 4.0</a></span></div></div></footer>
+<script>window.addEventListener('load',()=>{ /* ---------- utils */
+function RNG(seed){let s=seed>>>0;return()=>{s=(s*1664525+1013904223)>>>0;return s/4294967296}}
+function gauss(r){let u=0,v=0;while(u===0)u=r();while(v===0)v=r();return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v)}
+function median(a){const b=[...a].sort((x,y)=>x-y),m=b.length>>1;return b.length%2?b[m]:(b[m-1]+b[m])/2}
+function mad(a){const m=median(a);return median(a.map(x=>Math.abs(x-m)))}
+function corr(a,b){const n=a.length,ma=a.reduce((s,x)=>s+x,0)/n,mb=b.reduce((s,x)=>s+x,0)/n;let sa=0,sb=0,sab=0;for(let i=0;i<n;i++){sa+=(a[i]-ma)**2;sb+=(b[i]-mb)**2;sab+=(a[i]-ma)*(b[i]-mb)}return sab/Math.sqrt(sa*sb||1e-9)}
+const col=n=>getComputedStyle(document.body).getPropertyValue(n).trim();
+const SANS='"Inter Tight",Helvetica,Arial,sans-serif';
+function setup(c){const dpr=Math.min(window.devicePixelRatio||1,2),w=c.clientWidth||600,h=+c.dataset.h||c.clientHeight||44;
+  if(c.dataset.h)c.style.height=h+'px';if(c.width!==Math.round(w*dpr)||c.height!==Math.round(h*dpr)){c.width=Math.round(w*dpr);c.height=Math.round(h*dpr)}
+  const g=c.getContext('2d');g.setTransform(dpr,0,0,dpr,0,0);g.clearRect(0,0,w,h);return{g,w,h}}
+function axes(g,w,h,pad,title,bg){g.fillStyle=bg||col('--bg');g.fillRect(0,0,w,h);g.strokeStyle=col('--line');g.lineWidth=1;g.beginPath();g.moveTo(pad.l,pad.t);g.lineTo(pad.l,h-pad.b);g.lineTo(w-pad.r,h-pad.b);g.stroke();if(title){g.fillStyle=col('--ink');g.font='italic 13px Literata,Georgia,serif';g.textAlign='left';g.fillText(title,pad.l,16)}}
+function line(g,xs,ys,X,Y,color,lw=1.2,alpha=1){g.globalAlpha=alpha;g.strokeStyle=color;g.lineWidth=lw;g.beginPath();let st=false;xs.forEach((x,i)=>{const px=X(x),py=Y(ys[i]);if(!isFinite(py)){st=false;return}st?g.lineTo(px,py):g.moveTo(px,py);st=true});g.stroke();g.globalAlpha=1}
+const scale=(d0,d1,r0,r1)=>v=>r0+(v-d0)/(d1-d0)*(r1-r0);
+function label(g,t,x,y,c,align='left',size=12,weight=''){g.fillStyle=c;g.font=weight+' '+size+'px '+SANS;g.textAlign=align;g.fillText(t,x,y);g.textAlign='left'}
+function dash(g,x0,y0,x1,y1,c){g.strokeStyle=c;g.setLineDash([4,3]);g.lineWidth=1;g.beginPath();g.moveTo(x0,y0);g.lineTo(x1,y1);g.stroke();g.setLineDash([])}
+const $=id=>document.getElementById(id);const val=id=>+$(id).value;
+
+/* ---------- theme on scroll */
+const secs=[...document.querySelectorAll('section[data-theme]')];
+const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){const t=e.target.dataset.theme;if(document.body.dataset.theme!==t){document.body.dataset.theme=t;setTimeout(drawAll,820)}}})},{rootMargin:'-40% 0px -55% 0px',threshold:0});
+secs.forEach(s=>io.observe(s));
+
+
+/* ---------- the trace: the book's visual language */
+const TIME={hero:'rgb(233,144,21)',p1:'rgb(233,144,21)',p2:'rgb(233,144,21)',p3:'rgb(233,144,21)',p4:'rgb(233,144,21)',p5:'rgb(233,144,21)',night:'rgb(233,144,21)'};
+const REDUCED=matchMedia('(prefers-reduced-motion: reduce)').matches;
+function smooth(ys,k){const o=[];for(let i=0;i<ys.length;i++){let a=0,n=0;for(let j=-k;j<=k;j++){const v=ys[i+j];if(v!==undefined){a+=v;n++}}o.push(a/n)}return o}
+function traceData(state){const r=RNG(89),n=40,T=377,series=[];for(let i=0;i<n;i++){let y=0;const ys=[];for(let t=0;t<T;t++){y=y*.97+gauss(r)*.21;ys.push(y)}series.push(smooth(ys,3))}return {series,T}}
+function drawTrace(c,progress=1){const state=c.dataset.state,{g,w,h}=setup(c);g.fillStyle=col('--bg');g.fillRect(0,0,w,h);
+  const {series,T}=traceData(state),pale=col('--ink2'),acc=TIME[state]||col('--ink');
+  const m=w*.089;const X=scale(0,T-1,m,w-m),mid=h*.618,amp=h/8;const Y=v=>mid+v*amp;const brk=Math.round(T*.618);const upto=Math.max(2,Math.round(T*progress));
+  const put=(ys,color,lw,alpha,lim=upto)=>line(g,ys.slice(0,lim).map((_,t)=>t),ys.slice(0,lim),X,Y,color,lw,alpha);
+  const breakOf=(ys,k=5.5)=>ys.map((v,t)=>t>=brk?v-Math.pow((t-brk)/(T-brk),1.618)*k:v);
+  if(state==='hero'||state==='p1'||state==='night'){
+    series.forEach((ys,i)=>{if(i!==21)put(ys,pale,1,state==='hero'?.34:.21)});
+    const a=breakOf(series[21]);put(a,acc,3,1);
+    if(progress>=1&&state!=='p1'){g.fillStyle=acc;g.beginPath();g.arc(X(T-1),Y(a[T-1]),3,0,7);g.fill()}}
+  if(state==='p2'){const a=series[3],b=series[5];put(a.map(v=>v-2.6),pale,1,.55);put(b.map(v=>v+2.6),pale,1,.55);const d=a.map((v,t)=>t?((v-a[t-1])-(b[t]-b[t-1]))*3:0);put(smooth(d,2),acc,2,1)}
+  if(state==='p3'){const a=series[8];line(g,a.slice(0,brk).map((_,t)=>t),a.slice(0,brk),X,Y,acc,3);[-4.5,-1.3,1.3,4.5].forEach((k,j)=>{const live=j===1||j===2;const d=a.map((v,t)=>t<brk?NaN:v+Math.pow((t-brk)/(T-brk),1.2)*k);put(d,live?acc:pale,live?2:1,live?1:.55)})}
+  if(state==='p4'){g.fillStyle=col('--line2');g.fillRect(X(brk),0,w-X(brk),h);g.strokeStyle=acc;g.lineWidth=1;g.setLineDash([3,5]);g.beginPath();g.moveTo(X(brk),0);g.lineTo(X(brk),h);g.stroke();g.setLineDash([]);const a=series[13].map((v,t)=>v-(t/T)*4.2+2.1);put(a,acc,3,1);g.fillStyle=acc;g.beginPath();g.arc(X(brk),Y(a[brk]),3,0,7);g.fill()}
+  if(state==='p5'){const a=breakOf(series[21],1.6);g.fillStyle=col('--line2');g.beginPath();g.moveTo(X(0),Y(1.8));for(let t=0;t<T;t++){g.lineTo(X(t),Y((t<brk?0:a[t])+1.8))}for(let t=T-1;t>=0;t--){g.lineTo(X(t),Y((t<brk?0:a[t])-1.8))}g.closePath();g.fill();put(a,acc,3,1)}}
+let heroDone=false,heroAnimating=false;
+function animateHero(c){if(REDUCED){drawTrace(c,1);heroDone=true;return}heroAnimating=true;const t0=performance.now(),dur=3400;const step=now=>{const p=Math.min(1,(now-t0)/dur);drawTrace(c,p);if(p<1)requestAnimationFrame(step);else{heroAnimating=false;heroDone=true}};requestAnimationFrame(step)}
+function drawTraces(){document.querySelectorAll('canvas.trace').forEach(c=>{if(c.dataset.state==='hero'){if(!heroDone&&!heroAnimating)animateHero(c);else if(heroDone)drawTrace(c,1)}else drawTrace(c,1)})}
+/* ---------- SCREEN 1: BI dashboard (static, boring, green) */
+const KPI1=[['Выручка, млн ₽','48,2','+3,1 % к плану'],['Запасы, дней','31','в норме'],['Дебиторская задолженность, млн ₽','12,4','−0,8 % к пр. нед.'],['Поставка №4471','чт 17.09','подтверждена'],
+  ['Платёжная дисциплина, поставщик S','97 %','в норме'],['Задержки перевозчика','11 %','в норме'],['Конверсия сайта','1,3 %','в норме'],['Уточнения графика, поставщик S','получено','еженедельно']];
+function drawBI(){const box=$('bi-kpis');if(!box)return;if(!box.children.length){KPI1.forEach(k=>{const d=document.createElement('div');d.className='bi-kpi';d.innerHTML=`<div class="l">${k[0]}</div><div class="v">${k[1]}</div><div class="d">${k[2]}</div><canvas></canvas>`;box.appendChild(d)})}
+  [...box.children].forEach((d,i)=>{const c=d.querySelector('canvas'),{g,w,h}=setup(c);const r=RNG(300+i);let y=0;const ys=[];for(let t=0;t<26;t++){y=y*0.6+gauss(r)*0.5;ys.push(y)}
+    const X=scale(0,25,1,w-1),lo=Math.min(...ys)-.4,hi=Math.max(...ys)+.4,Y=scale(lo,hi,h-2,2);g.fillStyle='rgb(233,233,233)';g.fillRect(0,0,w,h);line(g,ys.map((_,t)=>t),ys,X,Y,'rgb(21,144,55)',1.4)});
+  const bc=$('bi-bars');if(bc){const {g,w,h}=setup(bc);g.fillStyle='rgb(233,233,233)';g.fillRect(0,0,w,h);const regs=['Центр','Юг','Урал','Сибирь','СЗ','Восток'],fact=[12.4,9.1,8.7,6.9,6.2,4.9],plan=[12.0,9.3,8.4,6.8,6.0,4.8];const bw=(w-40)/regs.length;
+    regs.forEach((n,i)=>{const x=30+i*bw+8,Y=scale(0,14,h-22,10);g.fillStyle='rgb(144,144,144)';g.fillRect(x,Y(plan[i]),bw*.32,h-22-Y(plan[i]));g.fillStyle='rgb(21,144,55)';g.fillRect(x+bw*.36,Y(fact[i]),bw*.32,h-22-Y(fact[i]));label(g,n,x+bw*.34,h-7,'rgb(89,89,89)','center',11)});label(g,'план',w-70,14,'rgb(144,144,144)','left',11);g.fillStyle='rgb(144,144,144)';g.fillRect(w-84,7,9,9);label(g,'факт',w-30,14,'rgb(144,144,144)','left',11);g.fillStyle='rgb(21,144,55)';g.fillRect(w-44,7,9,9)}}
+
+/* ---------- SCREEN 3: anomaly instrument for supplier S (static) */
+function drawAI(){if(!$('ai-scale'))return;
+  /* norm-band sparklines for broken expectations */
+  document.querySelectorAll('.ai-item canvas').forEach((c,i)=>{const {g,w,h}=setup(c);const r=RNG(500+i),dir=+c.dataset.dir||1,silent=c.dataset.silent==='1';const ys=[];let y=0;for(let t=0;t<30;t++){y=y*.5+gauss(r)*.5;let v=y;if(t>=22&&!silent)v+=(t-22)/7*3.2*dir;if(silent&&t>=26)v=NaN;ys.push(v)}
+    const X=scale(0,29,1,w-1),Y=scale(-4.5,4.5,h-2,2);g.fillStyle='rgb(34,34,34)';g.fillRect(1,Y(1.6),w-2,Y(-1.6)-Y(1.6));line(g,ys.map((_,t)=>t),ys,X,Y,silent?'rgb(144,144,144)':'rgb(233,144,21)',1.4);if(silent){g.fillStyle='rgb(233,34,13)';for(let t=26;t<30;t++){g.beginPath();g.arc(X(t),Y(0),1.6,0,7);g.fill()}}});
+  /* decision boundary scale */
+  const c=$('ai-scale'),{g,w,h}=setup(c);const X=scale(0,1,10,w-10);const y0=24,bh=12;
+  const zones=[[0,.143,'rgb(34,34,34)','план'],[.143,.8,'rgb(55,55,55)','резерв'],[.8,1,'rgb(34,34,34)','переключение']];
+  zones.forEach(([a,b,cl,n])=>{g.fillStyle=cl;g.fillRect(X(a),y0,X(b)-X(a),bh);label(g,n,X((a+b)/2),y0+bh+15,'rgb(144,144,144)','center',11)});
+  g.fillStyle='rgba(233,144,21,.34)';g.fillRect(X(.2),y0-5,X(.6)-X(.2),bh+10);g.strokeStyle='rgb(233,144,21)';g.lineWidth=1;g.strokeRect(X(.2),y0-5,X(.6)-X(.2),bh+10);
+  label(g,'оценка 20–60 %',X(.4),y0-10,'rgb(233,144,21)','center',11,'600');
+  g.fillStyle='rgb(233,233,233)';g.beginPath();g.arc(X(.4),y0+bh/2,4,0,7);g.fill();
+  [.143,.8].forEach(b=>{g.strokeStyle='rgb(144,144,144)';g.beginPath();g.moveTo(X(b),y0-2);g.lineTo(X(b),y0+bh+2);g.stroke();label(g,Math.round(b*100)+' %',X(b),h-3,'rgb(89,89,89)','center',10)})}
+
+/* ---------- demos (visual figures) */
+let noiseSeed=7,noiseOn=false;
+function drawNoise(){if(!$('c-noise-a'))return;const T=120,n=40,r=RNG(noiseSeed),data=[];for(let i=0;i<n;i++){let lvl=0;const ys=[];for(let t=0;t<T;t++){lvl+=gauss(r)*.05;let v=lvl+gauss(r)*.6;if(i===17&&t>=80)v+=(t-80)/40*4.5;ys.push(v)}data.push(ys)}
+  const thr=val('noiseThr');$('noiseThrV').textContent=thr;const A=setup($('c-noise-a')),B=setup($('c-noise-b')),pad={l:30,t:26,r:8,b:20};
+  axes(A.g,A.w,A.h,pad,'Сорок объектов, сырые ряды');let lo=1e9,hi=-1e9;data.forEach(d=>d.forEach(v=>{lo=Math.min(lo,v);hi=Math.max(hi,v)}));
+  const X=scale(0,T-1,pad.l,A.w-pad.r),Y=scale(lo,hi,A.h-pad.b,pad.t);data.forEach((d,i)=>{const hl=i===17&&noiseOn;line(A.g,d.map((_,t)=>t),d,X,Y,hl?col('--red'):col('--ink2'),hl?1.8:.8,hl?1:.35)});
+  axes(B.g,B.w,B.h,pad,noiseOn?'Отклонение от собственной истории':'То же, после расчёта');if(!noiseOn)return;
+  const Z=data.map(d=>d.map((v,t)=>{if(t<40)return NaN;const h=d.slice(t-40,t),m=median(h),s=1.4826*mad(h)||1e-6;return (v-m)/s}));
+  let zmax=0;Z.forEach(z=>z.forEach(v=>{if(isFinite(v))zmax=Math.max(zmax,v)}));const Yz=scale(-4,Math.max(8,zmax+.5),B.h-pad.b,pad.t);
+  dash(B.g,pad.l,Yz(thr),B.w-pad.r,Yz(thr),col('--ink'));label(B.g,'порог '+thr,pad.l+4,Yz(thr)-4,col('--ink2'));
+  let hits=0;Z.forEach(z=>{const over=z.some(v=>v>thr);if(over)hits++;line(B.g,z.map((_,t)=>t),z,X,Yz,over?col('--red'):col('--ink2'),over?1.8:.8,over?1:.35)});
+  label(B.g,`за порогом: ${hits} из 40`,B.w-pad.r-4,pad.t+14,col('--ink'),'right',13,'600')}
+if($('noiseReveal')){$('noiseReveal').onclick=()=>{noiseOn=!noiseOn;$('noiseReveal').textContent=noiseOn?'Убрать расчёт':'Показать расчёт';drawNoise()};$('noiseThr').oninput=drawNoise;$('noiseReroll').onclick=()=>{noiseSeed++;drawNoise()}}
+
+function drawPassport(){if(!$('c-pp-a'))return;const lag=val('ppLag'),bias=1+val('ppBias')/100;$('ppLagV').textContent=lag;$('ppBiasV').textContent=Math.round((bias-1)*100)+'%';
+  const T=104,r=RNG(4),real=[];for(let t=0;t<T;t++){let v=4000+300*Math.sin(t/52*2*Math.PI)+gauss(r)*80;if(t>=84)v-=(t-84)/20*900;real.push(v)}
+  const rep=real.map((_,t)=>bias*real[Math.max(0,t-lag)]+gauss(r)*60);
+  const A=setup($('c-pp-a')),B=setup($('c-pp-b')),pad={l:40,t:26,r:8,b:20};axes(A.g,A.w,A.h,pad,'Отчёт поставщика и реальность');
+  const lo=Math.min(...real,...rep)-100,hi=Math.max(...real,...rep)+100,X=scale(0,T-1,pad.l,A.w-pad.r),Y=scale(lo,hi,A.h-pad.b,pad.t);
+  line(A.g,real.map((_,t)=>t),real,X,Y,col('--ink'),1.3);line(A.g,rep.map((_,t)=>t),rep,X,Y,col('--red'),1.6);label(A.g,'реальность (известна позднее)',pad.l+4,A.h-pad.b-6,col('--ink2'));label(A.g,'отчёт',A.w-pad.r-4,pad.t+14,col('--red'),'right');
+  axes(B.g,B.w,B.h,pad,'Совпадение при сдвиге на τ недель');const lags=[];for(let l=-6;l<=8;l++)lags.push(l);
+  const cc=lags.map(l=>{const a=[],b=[];for(let t=12;t<T-12;t++){a.push(real[t]);b.push(rep[t+l]??rep[t])}return corr(a,b)});
+  const bi=cc.indexOf(Math.max(...cc)),Xb=scale(-7,9,pad.l,B.w-pad.r),Yb=scale(0,1,B.h-pad.b,pad.t),bw=(Xb(1)-Xb(0))*.7;
+  lags.forEach((l,i)=>{B.g.fillStyle=i===bi?col('--ink'):col('--line');B.g.fillRect(Xb(l)-bw/2,Yb(Math.max(0,cc[i])),bw,Yb(0)-Yb(Math.max(0,cc[i])))});
+  label(B.g,`задержка ${lags[bi]} нед.`,Xb(lags[bi]),Yb(cc[bi])-6,col('--ink'),'center',13,'600');
+  const bh=median(real.map((v,t)=>rep[t]/real[Math.max(0,t-lags[bi])]).slice(10));label(B.g,`смещение ×${bh.toFixed(2)}`,pad.l+4,pad.t+30,col('--ink2'));[-6,0,6].forEach(l=>label(B.g,l,Xb(l),B.h-6,col('--ink2'),'center',11))}
+if($('ppLag')){$('ppLag').oninput=drawPassport;$('ppBias').oninput=drawPassport}
+
+function drawFlow(){if(!$('c-flow-a'))return;const bA=1+val('biasA')/100,bB=1-val('biasB')/100,nz=val('flowNoise');
+  $('biasAV').textContent=Math.round((bA-1)*100)+'%';$('biasBV').textContent=Math.round((1-bB)*100)+'%';$('flowNoiseV').textContent=nz;
+  const T=60,r=RNG(3),real=[],A=[],B=[];for(let t=0;t<T;t++){let x=4000+gauss(r)*40;if(t>=40)x-=(t-40)/19*700;real.push(x);A.push(x*bA+gauss(r)*nz);B.push(x*bB+gauss(r)*nz)}
+  const P=setup($('c-flow-a')),Q=setup($('c-flow-b')),pad={l:44,t:26,r:8,b:20};axes(P.g,P.w,P.h,pad,'Уровни: два источника не согласны ни в одной точке');
+  const lo=Math.min(...B,...A,...real)-100,hi=Math.max(...A,...B,...real)+100,X=scale(0,T-1,pad.l,P.w-pad.r),Y=scale(lo,hi,P.h-pad.b,pad.t);
+  line(P.g,real.map((_,t)=>t),real,X,Y,col('--ink'),1,.4);line(P.g,A.map((_,t)=>t),A,X,Y,col('--red'),1.6);line(P.g,B.map((_,t)=>t),B,X,Y,col('--blue'),1.6);
+  axes(Q.g,Q.w,Q.h,pad,'Изменения: смещение исчезло');const dA=A.slice(1).map((v,i)=>v-A[i]),dB=B.slice(1).map((v,i)=>v-B[i]);const m=Math.max(...dA.map(Math.abs),...dB.map(Math.abs));
+  const X2=scale(0,T-2,pad.l,Q.w-pad.r),Y2=scale(-m,m,Q.h-pad.b,pad.t);Q.g.fillStyle=col('--tile');Q.g.fillRect(X2(39),pad.t,X2(58)-X2(39),Q.h-pad.b-pad.t);dash(Q.g,pad.l,Y2(0),Q.w-pad.r,Y2(0),col('--line'));
+  line(Q.g,dA.map((_,t)=>t),dA,X2,Y2,col('--red'),1.4);line(Q.g,dB.map((_,t)=>t),dB,X2,Y2,col('--blue'),1.4);label(Q.g,'оба видят одно и то же',X2(58)-4,pad.t+14,col('--ink'),'right',12,'600')}
+if($('biasA'))['biasA','biasB','flowNoise'].forEach(id=>$(id).oninput=drawFlow);
+
+function drawExpect(){if(!$('c-ex'))return;const amp=val('exAmp')/100,evt=val('exEvt')/100;$('exAmpV').textContent=Math.round(amp*100)+'%';$('exEvtV').textContent='+'+Math.round(evt*100)+'%';
+  const T=156,r=RNG(9),ys=[],lo=[],hi=[];for(let t=0;t<T;t++){const s=1+amp*Math.sin((t-10)/52*2*Math.PI),base=1000*s;let v=base*Math.exp(gauss(r)*.08);if(t===140)v=base*(1+evt);ys.push(v);lo.push(base*Math.exp(-.16));hi.push(base*Math.exp(.16))}
+  const P=setup($('c-ex')),pad={l:44,t:26,r:8,b:20};axes(P.g,P.w,P.h,pad,'Ожидание для каждой недели года');const mn=Math.min(...lo)*.9,mx=Math.max(...hi,...ys)*1.05,X=scale(0,T-1,pad.l,P.w-pad.r),Y=scale(mn,mx,P.h-pad.b,pad.t);
+  P.g.fillStyle=col('--tile');P.g.beginPath();P.g.moveTo(X(0),Y(hi[0]));for(let t=1;t<T;t++)P.g.lineTo(X(t),Y(hi[t]));for(let t=T-1;t>=0;t--)P.g.lineTo(X(t),Y(lo[t]));P.g.closePath();P.g.fill();
+  line(P.g,ys.map((_,t)=>t),ys,X,Y,col('--ink'),1.1);const mean=ys.reduce((a,b)=>a+b)/T,sd=Math.sqrt(ys.reduce((a,b)=>a+(b-mean)**2,0)/T),thr=mean+2*sd;dash(P.g,pad.l,Y(thr),P.w-pad.r,Y(thr),col('--ink2'));label(P.g,'общий порог: среднее + 2σ',pad.l+4,Y(thr)-5,col('--ink2'));
+  const anom=ys[140]>hi[140];P.g.fillStyle=anom?col('--red'):col('--ink2');P.g.beginPath();P.g.arc(X(140),Y(ys[140]),5,0,7);P.g.fill();label(P.g,anom?(ys[140]>thr?'аномалия — и порог тоже увидел':'аномалия — порог пропустил бы'):'в пределах ожидания',X(140)-8,Y(ys[140])-10,anom?col('--red'):col('--ink2'),'right');
+  const j=114;P.g.fillStyle=col('--green');P.g.beginPath();P.g.arc(X(j),Y(ys[j]),5,0,7);P.g.fill();label(P.g,'январь: выше июля, но норма',X(j),Y(ys[j])-10,col('--green'),'center')}
+if($('exAmp')){$('exAmp').oninput=drawExpect;$('exEvt').oninput=drawExpect}
+
+function drawChorus(){if(!$('c-ch-a'))return;const sh=val('chShift'),cond=$('chConductor').checked;$('chShiftV').textContent=sh.toFixed(1);
+  const T=120,r=RNG(172),S=[[],[],[]];for(let t=0;t<T;t++){const b=gauss(r);for(let k=0;k<3;k++){let v=b*.5+gauss(r)*1.1+(t>=50?sh:0);if(cond&&t>=90)v=b+gauss(r)*.05+(t>=50?sh:0);S[k].push(v)}}
+  const cus=z=>{const g=[0];for(let i=1;i<z.length;i++)g.push(Math.max(0,g[i-1]+z[i]-.25));return g};const sum=S[0].map((_,t)=>(S[0][t]+S[1][t]+S[2][t])/Math.sqrt(3));
+  const P=setup($('c-ch-a')),Q=setup($('c-ch-b')),pad={l:34,t:26,r:8,b:20},cols=[col('--red'),col('--blue'),col('--green')];
+  axes(P.g,P.w,P.h,pad,'Накопление: каналы по отдельности и их сумма');const G=S.map(cus),Gs=cus(sum),hi=Math.max(12,...Gs),X=scale(0,T-1,pad.l,P.w-pad.r),Y=scale(0,hi,P.h-pad.b,pad.t);
+  G.forEach((g,k)=>line(P.g,g.map((_,t)=>t),g,X,Y,cols[k],1,.55));line(P.g,Gs.map((_,t)=>t),Gs,X,Y,col('--ink'),2.2);dash(P.g,pad.l,Y(5),P.w-pad.r,Y(5),col('--ink2'));
+  const cross=Gs.findIndex(v=>v>5);label(P.g,cross>0?`порог пересечён на неделе ${cross}`:'порог не пересечён',pad.l+4,Y(5)-5,col('--ink'));
+  axes(Q.g,Q.w,Q.h,pad,'Согласованность пар источников (окно 20)');const w=20,rc=(a,b)=>a.map((_,i)=>i<w?NaN:corr(a.slice(i-w,i),b.slice(i-w,i)));const R=[rc(S[0],S[1]),rc(S[1],S[2]),rc(S[0],S[2])];
+  const Y2=scale(-.4,1.05,Q.h-pad.b,pad.t);Q.g.fillStyle=col('--tile');Q.g.fillRect(pad.l,Y2(.55),Q.w-pad.l-pad.r,Y2(.05)-Y2(.55));label(Q.g,'обычная согласованность',pad.l+4,Y2(.55)-4,col('--ink2'),'left',11);
+  R.forEach((rr,k)=>line(Q.g,rr.map((_,t)=>t),rr,X,Y2,cols[k],1.3));if(cond){dash(Q.g,X(90),pad.t,X(90),Q.h-pad.b,col('--ink'));label(Q.g,'хор',X(91),Y2(.95),col('--ink'),'left',12,'600')}}
+if($('chShift')){$('chShift').oninput=drawChorus;$('chConductor').onchange=drawChorus}
+
+const Hh=['Финансовые трудности','Производственная проблема','Проблема у перевозчика','Случайные совпадения'];
+const Ee=['Просьба о предоплате','Менеджер избегает сроков','Перевозчик перенёс выезд ×2','Срочная закупка компонента','Машина под вашу партию не назначена','Переносы по другим площадкам объяснены маршрутами'];
+let M=[[1,1,0,-1],[1,1,0,-1],[0,0,1,0],[0,1,0,-1],[1,1,-1,-1],[0,0,1,0]];
+function drawACH(){const el=$('ach');if(!el)return;const inc=Hh.map((_,j)=>M.reduce((s,row)=>s+(row[j]===-1?1:0),0)),best=Math.min(...inc);
+  let h='<table class="ach"><tr><th></th>'+Hh.map((x,j)=>`<th class="${inc[j]===best?'win':''}">${x}</th>`).join('')+'</tr>';
+  Ee.forEach((e,i)=>{h+=`<tr><td class="e">${e}</td>`+Hh.map((_,j)=>{const v=M[i][j],t=v===1?'C':v===-1?'I':'n';return `<td><button class="${t}" data-i="${i}" data-j="${j}" aria-label="${e}: ${t}">${t}</button></td>`}).join('')+'</tr>'});
+  h+='<tr><td class="e">Несовместимостей</td>'+inc.map(v=>`<td class="sum ${v===best?'win':''}">${v}</td>`).join('')+'</tr></table>';
+  el.innerHTML=h;el.querySelectorAll('button').forEach(b=>b.onclick=()=>{const i=+b.dataset.i,j=+b.dataset.j;M[i][j]=M[i][j]===1?0:M[i][j]===0?-1:1;drawACH()})}
+drawACH();
+
+function drawAbs(){if(!$('c-abs'))return;const cov=val('absCov');$('absCovV').textContent=cov+'%';const T=100,r=RNG(5),ys=[];for(let t=0;t<T;t++){const lam=t<75?1000:1000*cov/100;ys.push(lam+gauss(r)*Math.sqrt(lam))}
+  const P=setup($('c-abs')),pad={l:44,t:26,r:8,b:20};axes(P.g,P.w,P.h,pad,'События в день. Каждое — нормально');const X=scale(0,T-1,pad.l,P.w-pad.r),Y=scale(550,1100,P.h-pad.b,pad.t),lo=1000-1.64*Math.sqrt(1000);
+  const bad=ys.map(v=>v<lo);const first=bad.findIndex((x,t)=>x&&bad[t+1]&&bad[t+2]);if(first>=0){P.g.fillStyle=col('--tile');P.g.fillRect(X(first),pad.t,X(T-1)-X(first),P.h-pad.b-pad.t)}
+  line(P.g,ys.map((_,t)=>t),ys,X,Y,col('--ink'),1.4);dash(P.g,pad.l,Y(lo),P.w-pad.r,Y(lo),col('--red'));label(P.g,'граница покрытия; тревога при трёх днях подряд',pad.l+4,Y(lo)+15,col('--red'));
+  label(P.g,first>=0?`тревога с дня ${first}`:'покрытие в норме',P.w-pad.r-4,pad.t+14,col('--ink'),'right',13,'600')}
+if($('absCov'))$('absCov').oninput=drawAbs;
+
+function drawLoss(){if(!$('c-loss'))return;const p=val('lossP')/100;$('lossPV').textContent=Math.round(p*100)+'%';
+  const L=[['Сохранить план',q=>10*q,col('--ink2')],['Резервировать',q=>1+3*q,col('--ink')],['Переключиться',q=>3+.5*q,col('--blue')]];
+  const P=setup($('c-loss')),pad={l:36,t:26,r:8,b:22};axes(P.g,P.w,P.h,pad,'Ожидаемые потери, млн');const X=scale(0,1,pad.l,P.w-pad.r),Y=scale(0,10,P.h-pad.b,pad.t);
+  P.g.fillStyle=col('--tile');P.g.fillRect(X(.2),pad.t,X(.6)-X(.2),P.h-pad.b-pad.t);label(P.g,'оценка команды: 20–60 %',X(.21),pad.t+14,col('--ink2'));
+  const xs=[...Array(101)].map((_,i)=>i/100);L.forEach(([n,f,c],k)=>{line(P.g,xs,xs.map(f),X,Y,c,2);const lx=k===0?.62:.9,ly=k===1?16:-6;label(P.g,n,X(lx),Y(f(lx))+ly,c)});
+  [.1429,.8].forEach(b=>{dash(P.g,X(b),pad.t,X(b),P.h-pad.b,col('--line'));label(P.g,Math.round(b*100)+'%',X(b),P.h-6,col('--ink2'),'center',11)});
+  const vals=L.map(([n,f])=>f(p)),bi=vals.indexOf(Math.min(...vals));P.g.strokeStyle=col('--red');P.g.lineWidth=1.5;P.g.beginPath();P.g.moveTo(X(p),pad.t);P.g.lineTo(X(p),P.h-pad.b);P.g.stroke();P.g.fillStyle=col('--red');P.g.beginPath();P.g.arc(X(p),Y(vals[bi]),5,0,7);P.g.fill();
+  const v=$('lossVerdict');v.textContent=`${L[bi][0]} — ${vals[bi].toFixed(2)} млн`;
+  const R=q=>Math.min(...L.map(([_,f])=>f(q))),act=q=>{const a=L.map(([_,f])=>f(q));return L[a.indexOf(Math.min(...a))][0].toLowerCase()};
+  const sens=.8,fpr=.1,Pp=sens*p+fpr*(1-p),pp=Pp>0?sens*p/Pp:0,pn=Pp<1?(1-sens)*p/(1-Pp):0,Ra=Pp*R(pp)+(1-Pp)*R(pn),ev=R(p)-Ra;
+  $('evsi').innerHTML=`Экспресс-проверка при оценке ${Math.round(p*100)} %: при «+» риск ${Math.round(pp*100)} % → <em>${act(pp)}</em>; при «−» ${Math.round(pn*100)} % → <em>${act(pn)}</em>.<b>Ценность проверки: ${ev.toFixed(3)} млн</b>${ev<0.005?'Ни один результат не меняет действие.':'Стоит платить, если цена ниже — и если успевает до срока.'}`}
+if($('lossP'))$('lossP').oninput=drawLoss;
+
+/* ---------- instrument v2 */
+/* ---------- instrument v2: graph, cusum, loss */
+function drawAI2(){if(!$('ai-graph'))return;const INK='rgb(233,233,233)',MUT='rgb(144,144,144)',DIM='rgb(89,89,89)',LINE='rgb(34,34,34)',AMB='rgb(233,144,21)',BLU='rgb(89,144,233)',RED='rgb(233,34,13)',GRN='rgb(21,144,55)';
+  /* source sparklines with norm band */
+  document.querySelectorAll('.ai-src canvas').forEach((c,i)=>{const {g,w,h}=setup(c);const r=RNG(600+i),silent=c.dataset.silent==='1',flat=c.dataset.flat==='1';const ys=[];let y=0;for(let t=0;t<30;t++){y=y*.5+gauss(r)*.5;let v=y;if(t>=22&&!silent&&!flat)v+=(t-22)/7*3.2;if(silent&&t>=26)v=NaN;if(flat)v=y*.3;ys.push(v)}
+    const X=scale(0,29,1,w-1),Y=scale(-4.5,4.5,h-2,2);g.fillStyle=LINE;g.fillRect(1,Y(1.6),w-2,Y(-1.6)-Y(1.6));line(g,ys.map((_,t)=>t),ys,X,Y,silent?MUT:flat?DIM:AMB,1.4);if(silent){g.fillStyle=RED;for(let t=26;t<30;t++){g.beginPath();g.arc(X(t),Y(0),1.6,0,7);g.fill()}}});
+  /* provenance graph */
+  {const c=$('ai-graph'),{g,w,h}=setup(c);g.fillStyle='rgb(13,13,13)';g.fillRect(0,0,w,h);
+   const N={S:[w*.5,h*.5,'Поставщик S'],pub:[w*.13,h*.2,'Публикация'],a:[w*.28,h*.08,'Портал A'],b:[w*.28,h*.32,'Портал B'],fr:[w*.13,h*.5,'Знакомый'],car:[w*.15,h*.8,'Перевозчик'],buy:[w*.5,h*.87,'Закупки'],you:[w*.87,h*.5,'Оценка'],sil:[w*.82,h*.15,'Уточнения графика']};
+   const E=[['pub','a',DIM],['pub','b',DIM],['b','fr',DIM],['a','you',DIM],['b','you',DIM],['fr','you',DIM],['pub','you',DIM],['S','pub',DIM],['car','you',BLU],['buy','you',BLU],['S','car',LINE],['S','buy',LINE],['sil','you',RED],['S','sil',LINE]];
+   E.forEach(([p,q,col])=>{const [x1,y1]=N[p],[x2,y2]=N[q];g.strokeStyle=col;g.lineWidth=col===DIM?1:1.5;g.setLineDash(col===RED?[3,4]:[]);g.beginPath();g.moveTo(x1,y1);g.lineTo(x2,y2);g.stroke();g.setLineDash([])});
+   g.fillStyle='rgba(144,144,144,.089)';g.beginPath();g.ellipse(w*.21,h*.27,w*.15,h*.3,0,0,7);g.fill();label(g,'одна ветка · 5 → 1',w*.21,h*.62,DIM,'center',11);
+   Object.entries(N).forEach(([k,[x,y,t]])=>{const big=k==='S'||k==='you';g.fillStyle=k==='S'?AMB:k==='you'?INK:k==='sil'?RED:(k==='car'||k==='buy')?BLU:DIM;g.beginPath();g.arc(x,y,big?8:5,0,7);g.fill();label(g,t,x,y+(big?21:16),k==='S'?INK:MUT,'center',11,big?'600':'')});
+   label(g,'синие — независимые каналы · серые — одна ветка происхождения · красный — тишина',w-8,h-6,DIM,'right',11)}
+  /* CUSUM */
+  {const c=$('ai-cusum'),{g,w,h}=setup(c);g.fillStyle='rgb(13,13,13)';g.fillRect(0,0,w,h);const T=120,r=RNG(172),S=[[],[],[]];for(let t=0;t<T;t++){const b=gauss(r);for(let k=0;k<3;k++)S[k].push(b*.5+gauss(r)*1.1+(t>=50?.6:0))}
+   const cus=z=>{const o=[0];for(let i=1;i<z.length;i++)o.push(Math.max(0,o[i-1]+z[i]-.25));return o};const sum=S[0].map((_,t)=>(S[0][t]+S[1][t]+S[2][t])/Math.sqrt(3));const G=S.map(cus),Gs=cus(sum);
+   const pad={l:28,t:8,r:8,b:16},X=scale(0,T-1,pad.l,w-pad.r),Y=scale(0,Math.max(12,...Gs),h-pad.b,pad.t);g.strokeStyle=LINE;g.beginPath();g.moveTo(pad.l,h-pad.b);g.lineTo(w-pad.r,h-pad.b);g.stroke();
+   G.forEach(gg=>line(g,gg.map((_,t)=>t),gg,X,Y,BLU,1,.55));line(g,Gs.map((_,t)=>t),Gs,X,Y,AMB,2);dash(g,pad.l,Y(5),w-pad.r,Y(5),MUT);label(g,'порог h = 5',pad.l+4,Y(5)-4,MUT,'left',11);
+   const cross=Gs.findIndex(v=>v>5);if(cross>0){g.fillStyle=AMB;g.beginPath();g.arc(X(cross),Y(Gs[cross]),3,0,7);g.fill();label(g,'нед. '+cross,X(cross),Y(Gs[cross])-8,AMB,'center',11,'600')}
+   dash(g,X(50),pad.t,X(50),h-pad.b,DIM);label(g,'сдвиг 0,6σ',X(50)+4,pad.t+12,DIM,'left',11)}
+  /* expected loss + boundary */
+  {const c=$('ai-loss'),{g,w,h}=setup(c);g.fillStyle='rgb(13,13,13)';g.fillRect(0,0,w,h);const pad={l:8,t:8,r:8,b:16},X=scale(0,1,pad.l,w-pad.r),Y=scale(0,10,h-pad.b,pad.t);
+   g.fillStyle='rgba(233,144,21,.21)';g.fillRect(X(.2),pad.t,X(.6)-X(.2),h-pad.b-pad.t);[.143,.8].forEach(b=>dash(g,X(b),pad.t,X(b),h-pad.b,DIM));
+   const xs=[...Array(101)].map((_,i)=>i/100);const L=[[q=>10*q,DIM],[q=>1+3*q,AMB],[q=>3+.5*q,BLU]];L.forEach(([f,col])=>line(g,xs,xs.map(f),X,Y,col,col===AMB?2:1.2));
+   g.fillStyle=INK;g.beginPath();g.arc(X(.4),Y(1+3*.4),4,0,7);g.fill();label(g,'20–60 %',X(.4),pad.t+11,AMB,'center',11,'600');label(g,'14',X(.143),h-4,DIM,'center',10);label(g,'80',X(.8),h-4,DIM,'center',10)}}
+
+/* ---------- instrument app */
+/* ---------- instrument app */
+function aiApp(){const root=$('ai');if(!root||root.dataset.ready)return;root.dataset.ready='1';
+ const INK='rgb(233,233,233)',MUT='rgb(144,144,144)',DIM='rgb(89,89,89)',LINE='rgb(34,34,34)',AMB='rgb(233,144,21)',BLU='rgb(89,144,233)',RED='rgb(233,34,13)',GRN='rgb(21,144,55)',BG='rgb(13,13,13)';
+ const SRC=[
+  {id:'buy',code:'A1',cls:'b',name:'Закупки: срочный заказ компонента',mech:'внутренний документ',lag:'0',bias:'нет',noise:'низкий',cov:'100 %',last:'пн 09:10',indep:true,dir:1,note:'Внеплановая закупка критического компонента 14.09. Норма: закупается заранее, за 6–8 недель.'},
+  {id:'car',code:'B2',cls:'b',name:'Перевозчик: задержки по S',mech:'API перевозчика',lag:'1 день',bias:'нет',noise:'средний',cov:'98 %',last:'пн 11:40',indep:true,dir:1,note:'32 задержки из 100 отправок за 4 недели при опорной доле 11 %. Машина под партию №4471 не назначена.'},
+  {id:'sup',code:'B3',cls:'c',name:'Отчёт поставщика: готовность',mech:'еженедельный отчёт S',lag:'2 нед.',bias:'+15 %',noise:'средний',cov:'96 %',last:'пт 11.09',indep:false,dir:1,note:'Завышает готовность на 15 % устойчиво два года. Ритм подтверждений сломан: вторник → нет.'},
+  {id:'pub',code:'C3',cls:'c',name:'Публикации о S',mech:'отраслевые порталы',lag:'3–7 дней',bias:'к драме',noise:'высокий',cov:'—',last:'вс 13.09',indep:true,dir:1,note:'5 сообщений, 1 первоисточник. Порталы A и B, рассылка и пост восходят к одной публикации.'},
+  {id:'fr',code:'E5',cls:'d',name:'Знакомый «слышал»',mech:'устно',lag:'—',bias:'—',noise:'—',cov:'—',last:'пн 10:05',indep:false,flat:true,note:'Пересказ публикации. Самостоятельного веса не имеет; в оценку не входит.'},
+  {id:'sil',code:'A·—',cls:'r',name:'Уточнение графика от S',mech:'еженедельное письмо S',lag:'—',bias:'—',noise:'—',cov:'2 пропуска',last:'вт 01.09',indep:false,silent:true,note:'Приходило каждый вторник 104 недели подряд. Не пришло 8.09 и 15.09. Три пропуска подряд при такой истории — 8·10⁻⁶.'}];
+ const HYP=[{n:'Финансовые трудности',see:'Просьба о предоплате у других клиентов. Задержки платежей поставщикам S. Смена банка или условий кредитования.'},
+  {n:'Производственная проблема',see:'Падение отгрузок всем клиентам. Отсутствие машин под готовые партии. Срочные закупки компонентов самим S.'},
+  {n:'Проблема у перевозчика',see:'Переносы по всем площадкам перевозчика, не только по S. Машина под партию назначена. Готовность подтверждена.'},
+  {n:'Случайные совпадения',see:'Ни одно из наблюдений не повторяется на следующей неделе. Ритм подтверждений восстанавливается.'}];
+ const EV=['Просьба о предоплате','Менеджер избегает сроков','Перевозчик перенёс выезд ×2','Срочная закупка компонента','Машина под партию не назначена','Переносы по другим площадкам объяснены маршрутами'];
+ let M=[[1,1,0,-1],[1,1,0,-1],[0,0,1,0],[0,1,0,-1],[1,1,-1,-1],[0,0,1,0]];
+ let p=.40,wd=.20,selSrc='sup',selHyp=1;
+ const inc=()=>HYP.map((_,j)=>M.reduce((s,r)=>s+(r[j]===-1?1:0),0));
+ const L=[q=>10*q,q=>1+3*q,q=>3+.5*q],NAMES=['Сохранить план','Резервировать','Переключиться'];
+ const best=q=>{const v=L.map(f=>f(q));return v.indexOf(Math.min(...v))};
+ /* series for a source (104 weeks) */
+ function series(src,T=104){const r=RNG(700+src.id.length*7+src.code.charCodeAt(0));const ys=[];let y=0;for(let t=0;t<T;t++){y=y*.6+gauss(r)*.5;let v=y;if(src.dir&&t>=T-8)v+=(t-(T-8))/7*3.2;if(src.flat)v=y*.3;if(src.silent&&t>=T-2)v=NaN;ys.push(v)}return ys}
+ function spark(c,src){const {g,w,h}=setup(c);const ys=series(src,30);const X=scale(0,29,1,w-1),Y=scale(-4.5,4.5,h-2,2);g.fillStyle=LINE;g.fillRect(1,Y(1.6),w-2,Y(-1.6)-Y(1.6));line(g,ys.map((_,t)=>t),ys,X,Y,src.silent?MUT:src.flat?DIM:AMB,1.4);if(src.silent){g.fillStyle=RED;for(let t=28;t<30;t++){g.beginPath();g.arc(X(t),Y(0),1.6,0,7);g.fill()}}}
+ /* views */
+ function show(tab){root.querySelectorAll('.ai-tabs button').forEach(b=>b.classList.toggle('on',b.dataset.tab===tab));root.querySelectorAll('.ai-view').forEach(v=>v.hidden=v.dataset.view!==tab);draw()}
+ root.querySelectorAll('.ai-tabs button').forEach(b=>b.onclick=()=>show(b.dataset.tab));
+ function renderLists(){
+  $('ai-srclist').innerHTML=SRC.map(x=>`<div class="ai-src ${x.silent?'silent':''}" data-id="${x.id}"><div class="code ${x.cls}">${x.code}</div><div><div class="n">${x.name}</div><div class="s">${x.mech} · ${x.last}</div></div><canvas data-h="34"></canvas></div>`).join('');
+  $('ai-srclist').querySelectorAll('.ai-src').forEach(el=>{el.onclick=()=>{selSrc=el.dataset.id;show('sources')};spark(el.querySelector('canvas'),SRC.find(x=>x.id===el.dataset.id))});
+  const I=inc(),b=Math.min(...I);$('ai-hyplist').innerHTML=HYP.map((h,j)=>`<div class="ai-h ${I[j]>b?'dead':''}" data-j="${j}"><span class="n">${h.n}</span><span class="c">${I[j]}</span></div>`).join('');
+  $('ai-hyplist').querySelectorAll('.ai-h').forEach(el=>el.onclick=()=>{selHyp=+el.dataset.j;show('versions')});
+  $('ai-alive').textContent=I.filter(v=>v===b).length+' живых';if($('ai-kpi-versions'))$('ai-kpi-versions').textContent=I.filter(v=>v===b).length+' живых';
+  $('ai-srctable').innerHTML='<tr><th>Код</th><th>Источник</th><th>Механизм</th><th>Задержка</th><th>Смещение</th><th>Покрытие</th><th>Последнее</th></tr>'+SRC.map(x=>`<tr class="row ${x.id===selSrc?'sel':''}" data-id="${x.id}"><td><span class="code ${x.cls}">${x.code}</span></td><td>${x.name}</td><td class="m">${x.mech}</td><td class="m">${x.lag}</td><td class="m">${x.bias}</td><td class="m">${x.cov}</td><td class="m">${x.last}</td></tr>`).join('');
+  $('ai-srctable').querySelectorAll('tr.row').forEach(tr=>tr.onclick=()=>{selSrc=tr.dataset.id;renderLists();draw()});
+  const src=SRC.find(x=>x.id===selSrc);$('ai-pp-code').textContent=src.code;$('ai-passport').innerHTML=`<b>${src.name}</b> · ${src.mech}. ${src.note}`;
+  $('ai-pp-kv').innerHTML=`<span>независимость</span><b>${src.indep?'независимый механизм':'зависит от другого источника'}</b><span>задержка</span><b>${src.lag}</b><span>смещение</span><b>${src.bias}</b><span>шум</span><b>${src.noise}</b><span>покрытие</span><b>${src.cov}</b>`;
+  /* ACH */
+  const I2=inc(),b2=Math.min(...I2);let h='<table class="ach"><tr><th></th>'+HYP.map((x,j)=>`<th class="${I2[j]===b2?'win':''}">${x.n}</th>`).join('')+'</tr>';
+  EV.forEach((e,i)=>{h+=`<tr><td class="e">${e}</td>`+HYP.map((_,j)=>{const v=M[i][j],t=v===1?'C':v===-1?'I':'n';return `<td><button class="${t}" data-i="${i}" data-j="${j}">${t}</button></td>`}).join('')+'</tr>'});
+  h+='<tr><td class="e">Несовместимостей</td>'+I2.map(v=>`<td class="sum ${v===b2?'win':''}">${v}</td>`).join('')+'</tr></table>';$('ai-ach').innerHTML=h;
+  $('ai-ach').querySelectorAll('button').forEach(bt=>bt.onclick=()=>{const i=+bt.dataset.i,j=+bt.dataset.j;M[i][j]=M[i][j]===1?0:M[i][j]===0?-1:1;renderLists();draw()});
+  $('ai-hyp-name').textContent=HYP[selHyp].n;$('ai-hyp-detail').innerHTML=`<p><b>Что должно быть видно.</b> ${HYP[selHyp].see}</p><p><b>Несовместимых наблюдений:</b> ${I2[selHyp]}.</p>`;
+  /* timeline */
+  $('ai-timeline').innerHTML=[['вт 01.09','Уточнение графика от S не пришло','первый пропуск · ритм 104 недели'],['пн 07.09','Перевозчик: доля задержек по S 19 %','норма 11 %'],['вт 08.09','Второй пропуск уточнения','тишина · 2 подряд'],['чт 10.09','Просьба изменить порядок оплаты','постоплата 30 дней → предоплата'],['вс 13.09','Публикация о S на портале A','+4 перепечатки'],['пн 09:10','Срочный заказ компонента','внутренний документ'],['пн 11:40','Машина под №4471 не назначена','различающее свидетельство'],['пн 14:30','Оценка 20–60 % · резерв','страница на стол'],['пн 14:35','Экспресс-проверка заказана','ответ к 15:45'],['чт 17.09','Исход','ожидается']].map(([t,e,sm],i,a)=>`<div class="ai-tl"><span class="t">${t}</span><span class="e ${i===a.length-1?'wait':i>=7?'now':''}">${e}<small>${sm}</small></span></div>`).join('');
+ }
+ function drawGraph(){const c=$('ai-graph');if(!c||c.offsetParent===null)return;const {g,w,h}=setup(c);g.fillStyle=BG;g.fillRect(0,0,w,h);
+  const N={S:[w*.5,h*.5,'Поставщик S'],pub:[w*.13,h*.2,'Публикация'],a:[w*.28,h*.08,'Портал A'],b:[w*.28,h*.32,'Портал B'],fr:[w*.13,h*.5,'Знакомый'],car:[w*.15,h*.8,'Перевозчик'],buy:[w*.5,h*.87,'Закупки'],you:[w*.87,h*.5,'Оценка'],sil:[w*.82,h*.15,'Уточнения']};
+  const E=[['pub','a',DIM],['pub','b',DIM],['b','fr',DIM],['a','you',DIM],['b','you',DIM],['fr','you',DIM],['pub','you',DIM],['S','pub',DIM],['car','you',BLU],['buy','you',BLU],['S','car',LINE],['S','buy',LINE],['sil','you',RED],['S','sil',LINE]];
+  E.forEach(([p1,q,col])=>{const [x1,y1]=N[p1],[x2,y2]=N[q];g.strokeStyle=col;g.lineWidth=col===DIM?1:1.5;g.setLineDash(col===RED?[3,4]:[]);g.beginPath();g.moveTo(x1,y1);g.lineTo(x2,y2);g.stroke();g.setLineDash([])});
+  g.fillStyle='rgba(144,144,144,.089)';g.beginPath();g.ellipse(w*.21,h*.27,w*.15,h*.3,0,0,7);g.fill();
+  const map={pub:'pub',a:'pub',b:'pub',fr:'fr',car:'car',buy:'buy',sil:'sil'};
+  Object.entries(N).forEach(([k,[x,y,t]])=>{const big=k==='S'||k==='you';const sel=map[k]===selSrc;g.fillStyle=k==='S'?AMB:k==='you'?INK:k==='sil'?RED:(k==='car'||k==='buy')?BLU:DIM;g.beginPath();g.arc(x,y,big?8:sel?7:5,0,7);g.fill();if(sel){g.strokeStyle=AMB;g.lineWidth=1;g.beginPath();g.arc(x,y,11,0,7);g.stroke()}label(g,t,x,y+(big?21:16),k==='S'?INK:MUT,'center',11,big?'600':'')});
+  c.onclick=e=>{const r=c.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top;for(const [k,[nx,ny]] of Object.entries(N)){if(Math.hypot(x-nx,y-ny)<14&&map[k]){selSrc=map[k];renderLists();show('sources');return}}}}
+ function drawCusum(){const c=$('ai-cusum');if(!c||c.offsetParent===null)return;const {g,w,h}=setup(c);g.fillStyle=BG;g.fillRect(0,0,w,h);const T=120,r=RNG(172),S=[[],[],[]];for(let t=0;t<T;t++){const b=gauss(r);for(let k=0;k<3;k++)S[k].push(b*.5+gauss(r)*1.1+(t>=50?.6:0))}
+  const cus=z=>{const o=[0];for(let i=1;i<z.length;i++)o.push(Math.max(0,o[i-1]+z[i]-.25));return o};const sum=S[0].map((_,t)=>(S[0][t]+S[1][t]+S[2][t])/Math.sqrt(3));const G=S.map(cus),Gs=cus(sum);
+  const pad={l:28,t:8,r:8,b:16},X=scale(0,T-1,pad.l,w-pad.r),Y=scale(0,Math.max(12,...Gs),h-pad.b,pad.t);g.strokeStyle=LINE;g.beginPath();g.moveTo(pad.l,h-pad.b);g.lineTo(w-pad.r,h-pad.b);g.stroke();
+  G.forEach(gg=>line(g,gg.map((_,t)=>t),gg,X,Y,BLU,1,.55));line(g,Gs.map((_,t)=>t),Gs,X,Y,AMB,2);dash(g,pad.l,Y(5),w-pad.r,Y(5),MUT);
+  const cross=Gs.findIndex(v=>v>5);if(cross>0){g.fillStyle=AMB;g.beginPath();g.arc(X(cross),Y(Gs[cross]),3,0,7);g.fill();label(g,'нед. '+cross,X(cross),Y(Gs[cross])-8,AMB,'center',11,'600')}}
+ function drawLoss(id,big){const c=$(id);if(!c||c.offsetParent===null)return;const {g,w,h}=setup(c);g.fillStyle=BG;g.fillRect(0,0,w,h);const pad={l:big?28:8,t:8,r:8,b:18},X=scale(0,1,pad.l,w-pad.r),Y=scale(0,10,h-pad.b,pad.t);
+  const lo=Math.max(0,p-wd),hi=Math.min(1,p+wd);g.fillStyle='rgba(233,144,21,.21)';g.fillRect(X(lo),pad.t,X(hi)-X(lo),h-pad.b-pad.t);[.143,.8].forEach(b=>dash(g,X(b),pad.t,X(b),h-pad.b,DIM));
+  const xs=[...Array(101)].map((_,i)=>i/100);L.forEach((f,k)=>{line(g,xs,xs.map(f),X,Y,[DIM,AMB,BLU][k],k===1?2:1.2);if(big)label(g,NAMES[k],X(.93),Y(f(.93))+(k===1?14:-6),[DIM,AMB,BLU][k],'right',11)});
+  const bi=best(p);g.fillStyle=INK;g.beginPath();g.arc(X(p),Y(L[bi](p)),4,0,7);g.fill();label(g,`${Math.round(lo*100)}–${Math.round(hi*100)} %`,X(p),pad.t+11,AMB,'center',11,'600');label(g,'14',X(.143),h-5,DIM,'center',10);label(g,'80',X(.8),h-5,DIM,'center',10);
+  if(!big)c.onclick=()=>show('decision')}
+ function drawCalib(){const c=$('ai-calib');if(!c||c.offsetParent===null)return;const {g,w,h}=setup(c);g.fillStyle=BG;g.fillRect(0,0,w,h);const pad={l:28,t:8,r:8,b:18},X=scale(0,1,pad.l,w-pad.r),Y=scale(0,1,h-pad.b,pad.t);
+  dash(g,X(0),Y(0),X(1),Y(1),DIM);const pts=[[.1,.12],[.3,.27],[.5,.47],[.7,.68],[.9,.86]];line(g,pts.map(a=>a[0]),pts.map(a=>a[1]),X,Y,AMB,2);pts.forEach(([a,b])=>{g.fillStyle=AMB;g.beginPath();g.arc(X(a),Y(b),3,0,7);g.fill()});
+  label(g,'заявлено',w-pad.r,h-5,DIM,'right',10);label(g,'сбылось',pad.l+2,pad.t+10,DIM,'left',10)}
+ function decide(){const lo=Math.max(0,p-wd),hi=Math.min(1,p+wd);const bl=best(lo),bh=best(hi),bp=best(p);
+  $('ai-est').textContent=`${Math.round(lo*100)}–${Math.round(hi*100)} %`;$('ai-zone').textContent=bl===bh?`вся в зоне «${NAMES[bl].toLowerCase()}»`:'диапазон пересекает границу';
+  const sens=.8,fpr=.1,Pp=sens*p+fpr*(1-p),pp=Pp>0?sens*p/Pp:0,pn=Pp<1?(1-sens)*p/(1-Pp):0,R=q=>Math.min(...L.map(f=>f(q))),ev=R(p)-(Pp*R(pp)+(1-Pp)*R(pn));
+  const rec=NAMES[bp]+'.'+(ev>.08?'<br>Проверку заказать.':'<br>Проверка не нужна.');$('ai-rec').innerHTML=rec;
+  const txt=`При «+» риск ${Math.round(pp*100)} % → ${NAMES[best(pp)].toLowerCase()}. При «−» ${Math.round(pn*100)} % → ${NAMES[best(pn)].toLowerCase()}. <b>Ценность ${ev.toFixed(2)} млн · цена 0,08 · срок 15:45.</b>`;
+  const task=`<strong>ЗАДАЧА:</strong> независимо подтвердить физическую готовность партии и назначенное время погрузки. <b>Почему сейчас:</b> ответ способен перевести оценку через границу действия. <b>Срок:</b> 15:30. <b>Если подтверждения нет:</b> резервировать.`;
+  $('ai-check').innerHTML=task;$('ai-evsi').innerHTML=txt;['ai-l0','ai-l1','ai-l2'].forEach((id,k)=>$(id).textContent=L[k](p).toFixed(2));$('ai-pv').textContent=Math.round(p*100)+' %';$('ai-wv').textContent='±'+Math.round(wd*100)}
+ $('ai-p').oninput=e=>{p=+e.target.value/100;decide();draw()};$('ai-w').oninput=e=>{wd=+e.target.value/100;decide();draw()};
+ function drawPP(){const c=$('ai-pp-chart');if(!c||c.offsetParent===null)return;const {g,w,h}=setup(c);g.fillStyle=BG;g.fillRect(0,0,w,h);const src=SRC.find(x=>x.id===selSrc),ys=series(src),T=ys.length,pad={l:8,t:8,r:8,b:16},X=scale(0,T-1,pad.l,w-pad.r),Y=scale(-5,5,h-pad.b,pad.t);
+  g.fillStyle=LINE;g.fillRect(X(0),Y(1.6),X(T-1)-X(0),Y(-1.6)-Y(1.6));line(g,ys.map((_,t)=>t),ys,X,Y,src.silent?MUT:src.flat?DIM:AMB,1.6);if(src.silent){g.fillStyle=RED;for(let t=T-2;t<T;t++){g.beginPath();g.arc(X(t),Y(0),2.5,0,7);g.fill()}}
+  label(g,'104 недели',pad.l+2,h-4,DIM,'left',10);label(g,'норма ±1,6σ',w-pad.r,pad.t+10,DIM,'right',10)}
+ function draw(){drawGraph();drawCusum();drawLoss('ai-loss',false);drawLoss('ai-loss2',true);drawCalib();drawPP();$('ai-srclist').querySelectorAll('.ai-src').forEach(el=>spark(el.querySelector('canvas'),SRC.find(x=>x.id===el.dataset.id)))}
+ renderLists();decide();draw();window.__aiDraw=draw}
+
+/* ---------- figures → interactive */
+/* ---------- interactive replacements for static figures */
+function drawAsym(){if(!$('c-asym'))return;const d=val('asDay'),k=val('asSpeed');$('asDayV').textContent=d;$('asSpeedV').textContent=k.toFixed(1);
+ const P=setup($('c-asym')),pad={l:36,t:40,r:12,b:24};axes(P.g,P.w,P.h,pad,'');const N=300,ts=[...Array(N)].map((_,i)=>i/(N-1)*30);const conf=t=>1/(1+Math.exp(-(t-17)/k)),free=t=>1-1/(1+Math.exp(-(t-13)/(k+.3)));
+ const X=scale(0,30,pad.l,P.w-pad.r),Y=scale(0,1,P.h-pad.b,pad.t);P.g.fillStyle='rgba(233,144,21,.21)';P.g.beginPath();P.g.moveTo(X(0),Y(0));ts.forEach(t=>P.g.lineTo(X(t),Y(Math.min(conf(t),free(t)))));P.g.lineTo(X(30),Y(0));P.g.closePath();P.g.fill();
+ line(P.g,ts,ts.map(conf),X,Y,col('--blue'),2.4);line(P.g,ts,ts.map(free),X,Y,col('--ink'),2.4);
+ [[1,'два человека'],[5,'предоплата'],[11,'контрагенты'],[16,'публикация'],[24,'срыв'],[29,'отчётность']].forEach(([x,l],i)=>{dash(P.g,X(x),pad.t,X(x),P.h-pad.b,col('--line'));label(P.g,l,X(x),pad.t-6-(i%2)*12,col('--ink2'),'center',10)});
+ P.g.strokeStyle=col('--amber');P.g.lineWidth=1.5;P.g.beginPath();P.g.moveTo(X(d),pad.t);P.g.lineTo(X(d),P.h-pad.b);P.g.stroke();
+ [[conf(d),col('--blue')],[free(d),col('--ink')]].forEach(([v,c])=>{P.g.fillStyle=c;P.g.beginPath();P.g.arc(X(d),Y(v),5,0,7);P.g.fill()});
+ label(P.g,'свобода действия',X(1.5),Y(.72),col('--ink'),'left',12,'600');label(P.g,'уверенность в информации',X(29.5),Y(.52),col('--blue'),'right',12,'600');
+ $('asVerdict').textContent=`день ${d}: уверенность ${Math.round(conf(d)*100)} %, вариантов ${Math.round(free(d)*100)} %`}
+if($('asDay')){$('asDay').oninput=drawAsym;$('asSpeed').oninput=drawAsym}
+
+const PROV={nodes:[{id:'pub',x:.12,y:.22,t:'Публикация',g:'pub'},{id:'a',x:.3,y:.1,t:'Портал A',g:'pub'},{id:'b',x:.3,y:.34,t:'Портал B',g:'pub'},{id:'fr',x:.12,y:.52,t:'Знакомый',g:'pub'},{id:'rs',x:.3,y:.58,t:'Рассылка',g:'pub'},{id:'car',x:.18,y:.84,t:'Перевозчик',g:'car'},{id:'buy',x:.52,y:.9,t:'Закупки',g:'buy'},{id:'you',x:.88,y:.5,t:'Оценка',g:''}],
+ edges:[['pub','a'],['pub','b'],['b','fr'],['pub','rs'],['a','you'],['b','you'],['fr','you'],['rs','you'],['pub','you'],['car','you'],['buy','you']],indep:{pub:false,car:true,buy:true}};
+function drawProv(){const c=$('c-prov');if(!c)return;const p0=val('prP0')/100,LR=val('prLR');$('prP0V').textContent=Math.round(p0*100)+' %';$('prLRV').textContent=LR;
+ const {g,w,h}=setup(c);g.fillStyle=col('--bg');g.fillRect(0,0,w,h);const N={};PROV.nodes.forEach(n=>N[n.id]=[n.x*w,n.y*h]);
+ PROV.edges.forEach(([p,q])=>{const grp=PROV.nodes.find(n=>n.id===p).g;const on=PROV.indep[grp];g.strokeStyle=on?col('--blue'):col('--line');g.lineWidth=on?1.6:1;g.beginPath();g.moveTo(...N[p]);g.lineTo(...N[q]);g.stroke()});
+ const pubs=PROV.nodes.filter(n=>n.g==='pub');if(!PROV.indep.pub){g.fillStyle='rgba(144,144,144,.089)';g.beginPath();g.ellipse(w*.21,h*.35,w*.16,h*.32,0,0,7);g.fill()}
+ PROV.nodes.forEach(n=>{const [x,y]=N[n.id];const on=n.g?PROV.indep[n.g]:true;g.fillStyle=n.id==='you'?col('--ink'):on?col('--blue'):col('--ink2');g.beginPath();g.arc(x,y,n.id==='you'?8:6,0,7);g.fill();label(g,n.t,x,y+16,col('--ink2'),'center',11)});
+ const msgs=5*(PROV.indep.pub?1:0)+(PROV.indep.car?1:0)+(PROV.indep.buy?1:0);const groups=(PROV.indep.pub?5:1)+(PROV.indep.car?1:0)+(PROV.indep.buy?1:0);
+ const count=groups;const O=p0/(1-p0)*Math.pow(LR,count),P=O/(1+O);
+ label(g,`свидетельств: ${count}`,w-8,20,col('--ink'),'right',13,'600');label(g,`P = ${Math.round(P*100*10)/10} %`,w-8,40,col('--amber'),'right',13,'600');
+ $('prVerdict').textContent=PROV.indep.pub?'публикации считаются независимыми — так думать нельзя':'пять публикаций схлопнуты в одно свидетельство';
+ c.onclick=e=>{const r=c.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top;for(const n of PROV.nodes){const [nx,ny]=N[n.id];if(n.g&&Math.hypot(x-nx,y-ny)<14){PROV.indep[n.g]=!PROV.indep[n.g];drawProv();return}}}}
+if($('prP0')){$('prP0').oninput=drawProv;$('prLR').oninput=drawProv}
+
+function drawOpp(){if(!$('c-opp-a'))return;const rate=val('opRate'),wk=val('opWeeks');$('opRateV').textContent=rate.toFixed(1).replace('.',',')+' %';$('opWeeksV').textContent=wk;
+ const r=RNG(31),conv=[...Array(300)].map(()=>{let a=0;for(let i=0;i<4;i++)a+=-Math.log(r());let b=0;for(let i=0;i<300;i++)b+=-Math.log(r());return a/(a+b)*100});const sorted=[...conv].sort((a,b)=>a-b),q=p=>sorted[Math.floor(p*(sorted.length-1))];
+ const A=setup($('c-opp-a')),pad={l:30,t:26,r:8,b:20};axes(A.g,A.w,A.h,pad,'Триста страниц одного типа');const bins=40,lo=0,hi=8,hist=Array(bins).fill(0);conv.forEach(v=>{const i=Math.min(bins-1,Math.floor((v-lo)/(hi-lo)*bins));hist[i]++});
+ const X=scale(lo,hi,pad.l,A.w-pad.r),Y=scale(0,Math.max(...hist),A.h-pad.b,pad.t);hist.forEach((v,i)=>{A.g.fillStyle=col('--line');A.g.fillRect(X(lo+i*(hi-lo)/bins)+1,Y(v),(X(hi)-X(lo))/bins-2,A.h-pad.b-Y(v))});
+ const q999=q(.999);dash(A.g,X(q999),pad.t,X(q999),A.h-pad.b,col('--ink2'));label(A.g,'квантиль 99,9 %',X(q999)+4,pad.t+12,col('--ink2'),'left',11);
+ A.g.strokeStyle=col('--amber');A.g.lineWidth=2.5;A.g.beginPath();A.g.moveTo(X(rate),pad.t);A.g.lineTo(X(rate),A.h-pad.b);A.g.stroke();label(A.g,'одна страница',X(rate)-4,A.h-pad.b-6,col('--amber'),'right',11,'600');
+ const B=setup($('c-opp-b'));axes(B.g,B.w,B.h,pad,'Недели');const series=[1.2,1.3,1.1,1.4,1.2];for(let i=0;i<wk;i++)series.push(rate+(RNG(50+i)()-.5)*.4);const Xb=scale(0,series.length-1,pad.l,B.w-pad.r),Yb=scale(0,9,B.h-pad.b,pad.t);
+ B.g.fillStyle=col('--tile');B.g.fillRect(pad.l,Yb(q(.975)),B.w-pad.l-pad.r,Yb(q(.025))-Yb(q(.975)));line(B.g,series.map((_,i)=>i),series,Xb,Yb,col('--amber'),2);series.forEach((v,i)=>{B.g.fillStyle=col('--amber');B.g.beginPath();B.g.arc(Xb(i),Yb(v),3,0,7);B.g.fill()});
+ const out=rate>q999;$('opVerdict').textContent=!out?'в пределах распределения':wk>=3?'режим: '+wk+' недели за квантилем — разбирать':'выброс: одна-две недели — ждать'}
+if($('opRate')){$('opRate').oninput=drawOpp;$('opWeeks').oninput=drawOpp}
+
+function drawCal(){if(!$('c-cal'))return;const ov=val('calOver')/100,res=val('calRes')/100;$('calOverV').textContent=Math.round(ov*100);$('calResV').textContent=Math.round(res*100);
+ const P=setup($('c-cal')),pad={l:36,t:20,r:12,b:28};axes(P.g,P.w,P.h,pad,'');const X=scale(0,1,pad.l,P.w-pad.r),Y=scale(0,1,P.h-pad.b,pad.t);dash(P.g,X(0),Y(0),X(1),Y(1),col('--ink2'));
+ const base=.3;const said=[.1,.3,.5,.7,.9];const obs=said.map(p=>{const r=base+(p-base)*res;return r-(p-.5)*ov*.6});line(P.g,said,obs,X,Y,col('--amber'),2.2);said.forEach((p,i)=>{P.g.fillStyle=col('--amber');P.g.beginPath();P.g.arc(X(p),Y(obs[i]),4,0,7);P.g.fill()});
+ label(P.g,'заявлено',P.w-pad.r,P.h-8,col('--ink2'),'right',11);label(P.g,'сбылось',pad.l+4,pad.t+12,col('--ink2'),'left',11);
+ /* Brier for a population with true probabilities said[], analyst says p, outcomes follow obs */
+ let bs=0;said.forEach((p,i)=>{bs+=obs[i]*(1-p)**2+(1-obs[i])*p**2});bs/=said.length;const gap=said.reduce((a,p,i)=>a+Math.abs(p-obs[i]),0)/said.length;
+ $('calVerdict').textContent=`Брайер ${bs.toFixed(3)} · средний разрыв ${Math.round(gap*100)} п.п.`}
+if($('calOver')){$('calOver').oninput=drawCal;$('calRes').oninput=drawCal}
+
+function drawId(){if(!$('c-id-a'))return;const sep=val('idSep');$('idSepV').textContent=sep.toFixed(1);
+ const pdf=(x,m,sd)=>Math.exp(-((x-m)**2)/(2*sd*sd))/(sd*Math.sqrt(2*Math.PI));const xs=[...Array(200)].map((_,i)=>-4+i*10/199);
+ const A=setup($('c-id-a')),pad={l:12,t:26,r:8,b:20};axes(A.g,A.w,A.h,pad,'То, что вы наблюдаете сейчас');let X=scale(-4,6,pad.l,A.w-pad.r),Y=scale(0,.45,A.h-pad.b,pad.t);
+ line(A.g,xs,xs.map(x=>pdf(x,1,1.2)),X,Y,col('--blue'),2.2);line(A.g,xs,xs.map(x=>pdf(x,1,1.2)),X,Y,col('--red'),2.2);A.g.setLineDash([5,4]);line(A.g,xs,xs.map(x=>pdf(x,1,1.2)),X,Y,col('--red'),2.2);A.g.setLineDash([]);label(A.g,'мир 1 и мир 2 совпадают',A.w-pad.r-4,pad.t+14,col('--ink2'),'right',11);
+ const B=setup($('c-id-b'));axes(B.g,B.w,B.h,pad,'Новый канал наблюдения');X=scale(-4,6,pad.l,B.w-pad.r);Y=scale(0,.45,B.h-pad.b,pad.t);
+ const f1=xs.map(x=>pdf(x,1,1.2)),f2=xs.map(x=>pdf(x,1+sep,1.2));B.g.fillStyle=col('--tile');B.g.beginPath();B.g.moveTo(X(-4),Y(0));xs.forEach((x,i)=>B.g.lineTo(X(x),Y(Math.min(f1[i],f2[i]))));B.g.lineTo(X(6),Y(0));B.g.closePath();B.g.fill();
+ line(B.g,xs,f1,X,Y,col('--blue'),2.2);line(B.g,xs,f2,X,Y,col('--red'),2.2);
+ let tv=0;for(let i=1;i<xs.length;i++)tv+=Math.abs(f1[i]-f2[i])*(xs[i]-xs[i-1])/2;const err=(1-tv)/2;
+ label(B.g,`TV = ${tv.toFixed(2)} · лучшая ошибка ${Math.round(err*100)} %`,B.w-pad.r-4,pad.t+14,col('--ink'),'right',12,'600');
+ $('idVerdict').textContent=sep<.2?'слева и справа одно и то же: различить нельзя':err<.2?'новый канал различает миры':'канал помогает, но слабо'}
+if($('idSep'))$('idSep').oninput=drawId;
+
+/* ---------- init */
+function drawAll(){drawAsym();drawProv();drawOpp();drawCal();drawId();drawTraces();drawBI();aiApp();if(window.__aiDraw)window.__aiDraw();drawNoise();drawPassport();drawFlow();drawExpect();drawChorus();drawAbs();drawLoss()}
+drawAll();let rt;window.addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(drawAll,150)});
+
+/* reading focus + reveals */
+(function(){const items=document.querySelectorAll('.chapter .wrap > p, .chapter .wrap li, .pull, h3.ch, .lead');
+ const seen=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('seen');seen.unobserve(e.target)}}),{rootMargin:'0px 0px -8% 0px',threshold:0});
+ const focus=new IntersectionObserver(es=>es.forEach(e=>e.target.classList.toggle('on',e.isIntersecting)),{rootMargin:'-38.2% 0px -38.2% 0px',threshold:0});
+ items.forEach(el=>{seen.observe(el);if(el.matches('p,li'))focus.observe(el)})})();
+
+
+
+
+/* inline notes */
+document.querySelectorAll('button.fn').forEach(b=>{b.addEventListener('click',()=>{const n=document.getElementById('fn-'+b.dataset.fn);const open=b.getAttribute('aria-expanded')==='true';b.setAttribute('aria-expanded',String(!open));n.hidden=open})});
+
+if(window.renderMathInElement){renderMathInElement(document.body,{delimiters:[{left:'\\[',right:'\\]',display:true},{left:'\\(',right:'\\)',display:false}],throwOnError:false})}
+ });</script>
+</body></html>
